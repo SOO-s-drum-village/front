@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import "./globals.css";
+import '../globals.css';
 
 export default function NotFound() {
   return (

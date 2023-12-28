@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 const Error = () => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const Error = () => {
           size="lg"
           color="red"
           className="rounded-md md:inline-block text-lg"
-          onClick={() => router.push("/")}
+          onClick={() => router.push('/')}
         >
           메인 페이지로 돌아가기
         </Button>
