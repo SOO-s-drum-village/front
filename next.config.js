@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['ycuajmirzlqpgzuonzca.supabase.co', 'www.sac.or.kr'],
+    domains: [
+      'ycuajmirzlqpgzuonzca.supabase.co',
+      'www.sac.or.kr',
+      'artinfokorea.com',
+    ],
     remotePatterns: [
       {
         protocol: 'https',
