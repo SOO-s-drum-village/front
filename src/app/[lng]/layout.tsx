@@ -5,7 +5,8 @@ import { languages } from '../i18n/settings';
 import '../globals.css';
 import QueryProvider from '../QueryProvider';
 import ToasterProvider from '../ToasterProvider';
-import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/layouts/Footer';
+import { Header } from '@/components/layouts/Header';
 
 const inter = Inter({ subsets: ['cyrillic'] });
 
@@ -30,8 +31,15 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning>
         <ToasterProvider>
           <QueryProvider>
-            {children}
-            <Footer lng={lng} />
+            <main
+              style={{
+                marginTop: '64px',
+              }}
+            >
+              <Header />
+              {children}
+              <Footer lng={lng} />
+            </main>
           </QueryProvider>
         </ToasterProvider>
       </body>

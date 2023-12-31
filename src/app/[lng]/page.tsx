@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useTranslation } from '../i18n';
 import Link from 'next/link';
+import { MainContainer } from '@/components/Main/MainContainer';
 
 export default async function Home({
   params: { lng },
@@ -10,11 +11,9 @@ export default async function Home({
 }) {
   const { t } = await useTranslation({ lng, ns: 'home' });
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {/* <Button size="lg" className="bg-blue-300 ">
-        {lng}
-      </Button> */}
+    <div className=" flex-col items-center justify-between max-w-screen-lg mx-auto">
+      <MainContainer />
       <Link href={`/${lng}/second-page`}>{t('home')}</Link>
-    </main>
+    </div>
   );
 }
