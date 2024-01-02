@@ -21,6 +21,9 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      roboto: ["var(--roboto)"], // 다음과 같이 배열 안에 string으로 작성합니다.
+    },
 
     extend: {
       colors: {

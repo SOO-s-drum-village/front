@@ -1,8 +1,16 @@
-import React from 'react';
-import { useTranslation } from '@/app/i18n';
-import { languages } from '@/app/i18n/settings';
-import Link from 'next/link';
-import { Trans } from 'react-i18next/TransWithoutContext';
+import React from "react";
+import { useTranslation } from "@/app/i18n";
+import { languages } from "@/app/i18n/settings";
+import Link from "next/link";
+import { Trans } from "react-i18next/TransWithoutContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const SearchIcon = () => {
   return (
@@ -12,7 +20,7 @@ const SearchIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
-      className="w-6 h-6 mr-1 cursor-pointer"
+      className="w-7 h-7 cursor-pointer"
     >
       <path
         strokeLinecap="round"
@@ -31,7 +39,7 @@ const UserIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
-      className="w-6 h-6 cursor-pointer"
+      className="w-7 h-7 cursor-pointer"
     >
       <path
         strokeLinecap="round"
@@ -43,32 +51,39 @@ const UserIcon = () => {
 };
 
 export const Header = async ({ lng }: any) => {
-  const { t } = await useTranslation({ lng, ns: 'header' });
+  const { t } = await useTranslation({ lng, ns: "header" });
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 h-max rounded-none py-4 px-4  lg:px-8 flex justify-between items-center bg-yellow-100">
+    <div className="sticky top-0 left-0 w-full z-50 h-max rounded-none py-4 px-4  lg:px-8 flex justify-between items-center bg-white">
       <div>
         <span className="text-2xl font-bold">Drum village</span>
       </div>
       <div className="flex">
         <div className="flex">
           <SearchIcon />
-          <UserIcon />
+
+          <DropdownMenu>
+            <DropdownMenuTrigger className="mx-1">
+              <UserIcon />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>{t("my-account")}</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>{t("my-profile")}</DropdownMenuItem>
+              <DropdownMenuItem>{t("logout")}</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <div className="mx-2">
-          <Trans i18nKey="languageSwitcher" t={t}>
-            <strong>{lng}</strong>
-          </Trans>
+          {/* <Trans i18nKey="languageSwitcher" t={t}>
+            <span>{lng}</span>
+          </Trans> */}
           {languages
             .filter((l) => lng !== l)
             .map((l, index) => {
               return (
-                <span
-                  key={l}
-                  className={`${lng === l ? 'text-red-500' : 'text-black'}`}
-                >
-                  {index > 0 && ' / '}
-                  <Link href={`/${l}`}>{l}</Link>
+                <span key={l} className="font-bold">
+                  <Link href={`/${l}`}> / {l}</Link>
                 </span>
               );
             })}

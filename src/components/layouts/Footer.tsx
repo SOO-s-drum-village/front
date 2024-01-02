@@ -1,7 +1,7 @@
-import { useTranslation } from '@/app/i18n';
-import { languages } from '@/app/i18n/settings';
-import Link from 'next/link';
-import { Trans } from 'react-i18next/TransWithoutContext';
+import { useTranslation } from "@/app/i18n";
+import { languages } from "@/app/i18n/settings";
+import Link from "next/link";
+import { Trans } from "react-i18next/TransWithoutContext";
 
 const HomeIcon = () => {
   return (
@@ -80,16 +80,16 @@ const TimeIcon = () => {
 };
 
 const footerList = [
-  { id: 1, icon: <HomeIcon />, title: '홈' },
-  { id: 2, icon: <TimeIcon />, title: '타임라인' },
-  { id: 3, icon: <MenuIcon />, title: '메뉴' },
-  { id: 4, icon: <UserIcon />, title: '마이페이지' },
+  { id: 1, icon: <HomeIcon />, title: "홈" },
+  { id: 2, icon: <TimeIcon />, title: "타임라인" },
+  { id: 3, icon: <MenuIcon />, title: "메뉴" },
+  { id: 4, icon: <UserIcon />, title: "마이페이지" },
 ];
 
 export const Footer = async ({ lng }: any) => {
-  const { t } = await useTranslation({ lng, ns: 'footer' });
+  const { t } = await useTranslation({ lng, ns: "footer" });
   return (
-    <footer className="fixed bottom-0 left-0 w-full py-4 px-4 bg-yellow-100 md:hidden">
+    <footer className="sticky bottom-0 left-0 w-full py-4 px-4  md:hidden bg-white">
       <div className="flex justify-between">
         {footerList.map((item) => (
           <div key={item.id} className="flex flex-col items-center">

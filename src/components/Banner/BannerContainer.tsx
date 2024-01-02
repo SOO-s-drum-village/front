@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import { Pagination } from 'swiper/modules';
+import React from "react";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Pagination } from "swiper/modules";
 
 const posters = [
   {
     id: 1,
     image_url:
-      'https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1703125972384.png',
+      "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1703125972384.png",
   },
 ];
 
@@ -34,7 +34,7 @@ export const BannerContainer = () => {
                 quality={100}
                 unoptimized
                 sizes="(max-width: 680px) 100px 40px, (max-width: 1200px) 200px, 100px"
-                className="max-w-full rounded-md shadow hover:shadow-lg"
+                className="max-w-full  shadow hover:shadow-lg"
               />
             </div>
           </SwiperSlide>
