@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 const BoltIcon = () => {
   return (
@@ -79,51 +79,53 @@ const BellIcon = () => {
 };
 
 const categoryList = [
-  { id: 1, icon: <BoltIcon />, title: '드럼' },
+  { id: 1, icon: <BoltIcon />, title: "드럼" },
   {
     id: 2,
     icon: <Chip />,
-    title: '드럼',
+    title: "드럼",
   },
   {
     id: 3,
     icon: <MusicIcon />,
-    title: '드럼',
+    title: "드럼",
   },
   {
     id: 4,
     icon: <BellIcon />,
-    title: '드럼',
+    title: "드럼",
   },
-  { id: 5, icon: <BoltIcon />, title: '드럼' },
+  { id: 5, icon: <BoltIcon />, title: "드럼" },
   {
     id: 6,
     icon: <Chip />,
-    title: '드럼',
+    title: "드럼",
   },
   {
     id: 7,
     icon: <MusicIcon />,
-    title: '드럼',
+    title: "드럼",
   },
   {
     id: 8,
     icon: <BellIcon />,
-    title: '드럼',
+    title: "드럼",
   },
 ];
 
 export const MainCategory = () => {
   return (
-    <div className="max-w-screen-md mx-auto my-8">
-      <div className="grid grid-cols-4 gap-4 place-items-center">
+    <div className="max-w-screen-lg mx-auto my-8">
+      <div className="my-4 md:my-20 grid grid-cols-4 gap-4 place-items-center md:grid-cols-8 md:gap-32">
         {categoryList.map((category) => (
           <div
             key={category.id}
             className="flex flex-col items-center cursor-pointer"
           >
             {category.icon}
-            <span className="mt-2">{category.title}</span>
+            <span className="mt-2 md:mt-4 text-base md:text-xl font-medium">
+              {category.title}
+            </span>
           </div>
         ))}
       </div>

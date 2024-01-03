@@ -44,11 +44,11 @@ export default function RootLayout({
     <html lang={lng} dir={dir(lng)}>
       <body
         className={cls(notoSansKr.className, roboto.className)}
-        suppressHydrationWarning
+        suppressHydrationWarning={true}
       >
         <ToasterProvider>
           <QueryProvider>
-            <main className="font-roboto max-w-screen-2xl mx-auto">
+            <main className="font-roboto">
               <Header lng={lng} />
               {children}
               <Footer lng={lng} />

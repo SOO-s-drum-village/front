@@ -1,8 +1,9 @@
-import React from "react";
-import { useTranslation } from "@/app/i18n";
+"use client";
+
+import React, { useState } from "react";
 import { languages } from "@/app/i18n/settings";
 import Link from "next/link";
-import { Trans } from "react-i18next/TransWithoutContext";
+import Image from "next/image";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +12,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useTranslation } from "@/app/i18n/client";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const SearchIcon = () => {
   return (
@@ -50,20 +61,31 @@ const UserIcon = () => {
   );
 };
 
-export const Header = async ({ lng }: any) => {
-  const { t } = await useTranslation({ lng, ns: "header" });
+export const Header = ({ lng }: any) => {
+  const { t } = useTranslation(lng, "header");
+  const [lang, setLang] = useState(lng);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const test = (value: any) => {
+    let path = pathname.split("/");
+    path[1] = value;
+    const newUrl = path.join("/");
+    return router.push(newUrl);
+  };
 
   return (
-    <div className="sticky top-0 left-0 w-full z-50 h-max rounded-none py-4 px-4  lg:px-8 flex justify-between items-center bg-white">
+    <div className="sticky top-0 left-0 w-full z-50 rounded-none py-4 px-4  lg:px-12 flex justify-between items-center bg-white">
       <div>
-        <span className="text-2xl font-bold">Drum village</span>
+        <Link href={`/${lng}`}>
+          <span className="text-2xl font-bold">Drum village</span>
+        </Link>
       </div>
       <div className="flex">
-        <div className="flex">
+        <div className="flex items-center">
           <SearchIcon />
-
           <DropdownMenu>
-            <DropdownMenuTrigger className="mx-1">
+            <DropdownMenuTrigger className="mx-1 md:mx-3">
               <UserIcon />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -74,19 +96,44 @@ export const Header = async ({ lng }: any) => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="mx-2">
+        <div className="mx-2 flex items-center">
           {/* <Trans i18nKey="languageSwitcher" t={t}>
             <span>{lng}</span>
           </Trans> */}
-          {languages
+          {/* {languages
             .filter((l) => lng !== l)
             .map((l, index) => {
               return (
-                <span key={l} className="font-bold">
-                  <Link href={`/${l}`}> / {l}</Link>
+                <span key={l} className="font-bold ">
+                  <Link href={`/${l}`} prefetch={false}>
+                    {lng === "en" ? "한국어" : "English"}
+                  </Link>
                 </span>
               );
-            })}
+            })} */}
+          <Select onValueChange={test}>
+            <SelectTrigger className="w-[130px] ">
+              <SelectValue
+                placeholder={`${lng === "kr" ? "한국어" : "English"}`}
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {languages
+                .filter((l) => lng !== l)
+                .map((l, index) => {
+                  return (
+                    // <span key={l} className="font-bold ">
+                    //   <Link href={`/${l}`} prefetch={false}>
+                    //     {lng === "en" ? "한국어" : "English"}
+                    //   </Link>
+                    // </span>
+                    <SelectItem key={l} value={l}>
+                      {l === `kr` ? "한국어" : "English"}
+                    </SelectItem>
+                  );
+                })}
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>

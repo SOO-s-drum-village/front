@@ -16,16 +16,13 @@ const posters = [
 
 export const BannerContainer = () => {
   return (
-    <section>
+    <section className="w-full mx-auto">
       <Swiper spaceBetween={10} slidesPerView="auto" modules={[Pagination]}>
         {/* <Swiper spaceBetween={10} slidesPerView={3} modules={[Pagination]}> */}
         {posters.map((item, idx) => (
           // <SwiperSlide key={item.id} style={{ width: "270px" }}>
           <SwiperSlide key={item.id}>
-            <div
-              style={{ height: 260 }}
-              className="cursor-pointer relative h-[150px]"
-            >
+            <div className="cursor-pointer relative h-[250px] md:h-[500px]">
               <Image
                 src={item.image_url!}
                 alt="banner_image"

@@ -1,5 +1,5 @@
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 
 interface Iprops {
   lecture: {
@@ -12,7 +12,7 @@ interface Iprops {
 export const LectureCard = ({ lecture }: Iprops) => {
   return (
     <div className="card flex flex-col  rounded-md">
-      <div className="relative h-[220px] lg:h-[300px]">
+      <div className="relative h-[220px] md:h-[400px]">
         <Image
           src={lecture.image_url}
           alt="concert_image"

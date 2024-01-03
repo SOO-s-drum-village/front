@@ -48,7 +48,7 @@ export const LectureContainer = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-2">
+    <div className="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 px-2">
       {lectureList.map((lecture) => (
         <LectureCard key={lecture.id} lecture={lecture} />
       ))}
