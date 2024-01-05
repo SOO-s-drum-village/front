@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { LectureCard } from "./LectureCard";
+import { Link } from "lucide-react";
 
 export const LectureContainer = () => {
   const lectureList = [
@@ -50,7 +53,7 @@ export const LectureContainer = () => {
   return (
     <div className="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 px-2">
       {lectureList.map((lecture) => (
-        <LectureCard key={lecture.id} lecture={lecture} />
+        <LectureCard lecture={lecture} key={lecture.id} />
       ))}
     </div>
   );

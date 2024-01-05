@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { languages } from "@/app/i18n/settings";
+import React, { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -19,9 +18,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useTranslation } from "@/app/i18n/client";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 const SearchIcon = () => {
   return (
@@ -61,25 +60,30 @@ const UserIcon = () => {
   );
 };
 
-export const Header = ({ lng }: any) => {
-  const { t } = useTranslation(lng, "header");
-  const [lang, setLang] = useState(lng);
-  const pathname = usePathname();
+export const Header = () => {
+  const { t, i18n } = useTranslation();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const lng = searchParams.get("lng");
 
-  const test = (value: any) => {
-    let path = pathname.split("/");
-    path[1] = value;
-    const newUrl = path.join("/");
-    return router.push(newUrl);
+  const handleLanguage = (value: any) => {
+    i18n.changeLanguage(value);
+    router.push(`?lng=${value}`);
+  };
+
+  const goToHome = () => {
+    if (lng) {
+      return router.push(`?lng=${lng}`);
+    }
+    router.push(`/`);
   };
 
   return (
-    <div className="sticky top-0 left-0 w-full z-50 rounded-none py-4 px-4  lg:px-12 flex justify-between items-center bg-white">
+    <div className="fixed top-0 left-0 w-full z-50 rounded-none py-4 px-4  lg:px-12 flex justify-between items-center bg-white shadow-md">
       <div>
-        <Link href={`/${lng}`}>
-          <span className="text-2xl font-bold">Drum village</span>
-        </Link>
+        <button onClick={goToHome}>
+          <span className="text-xl md:text-2xl font-bold">Drum village</span>
+        </button>
       </div>
       <div className="flex">
         <div className="flex items-center">
@@ -88,7 +92,7 @@ export const Header = ({ lng }: any) => {
             <DropdownMenuTrigger className="mx-1 md:mx-3">
               <UserIcon />
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="bg-white">
               <DropdownMenuLabel>{t("my-account")}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>{t("my-profile")}</DropdownMenuItem>
@@ -97,41 +101,17 @@ export const Header = ({ lng }: any) => {
           </DropdownMenu>
         </div>
         <div className="mx-2 flex items-center">
-          {/* <Trans i18nKey="languageSwitcher" t={t}>
-            <span>{lng}</span>
-          </Trans> */}
-          {/* {languages
-            .filter((l) => lng !== l)
-            .map((l, index) => {
-              return (
-                <span key={l} className="font-bold ">
-                  <Link href={`/${l}`} prefetch={false}>
-                    {lng === "en" ? "한국어" : "English"}
-                  </Link>
-                </span>
-              );
-            })} */}
-          <Select onValueChange={test}>
+          <Select onValueChange={handleLanguage}>
             <SelectTrigger className="w-[130px] ">
               <SelectValue
-                placeholder={`${lng === "kr" ? "한국어" : "English"}`}
+                placeholder={
+                  !lng ? "한국어" : lng === "ko" ? "한국어" : "English"
+                }
               />
             </SelectTrigger>
-            <SelectContent>
-              {languages
-                .filter((l) => lng !== l)
-                .map((l, index) => {
-                  return (
-                    // <span key={l} className="font-bold ">
-                    //   <Link href={`/${l}`} prefetch={false}>
-                    //     {lng === "en" ? "한국어" : "English"}
-                    //   </Link>
-                    // </span>
-                    <SelectItem key={l} value={l}>
-                      {l === `kr` ? "한국어" : "English"}
-                    </SelectItem>
-                  );
-                })}
+            <SelectContent className="bg-white">
+              <SelectItem value="ko">한국어</SelectItem>
+              <SelectItem value="en">English</SelectItem>
             </SelectContent>
           </Select>
         </div>

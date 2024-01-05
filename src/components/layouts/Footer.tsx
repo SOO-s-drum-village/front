@@ -1,8 +1,3 @@
-import { useTranslation } from "@/app/i18n";
-import { languages } from "@/app/i18n/settings";
-import Link from "next/link";
-import { Trans } from "react-i18next/TransWithoutContext";
-
 const HomeIcon = () => {
   return (
     <svg
@@ -86,10 +81,9 @@ const footerList = [
   { id: 4, icon: <UserIcon />, title: "마이페이지" },
 ];
 
-export const Footer = async ({ lng }: any) => {
-  const { t } = await useTranslation({ lng, ns: "footer" });
+export const Footer = async () => {
   return (
-    <footer className="sticky bottom-0 left-0 w-full py-4 px-4  md:hidden bg-white">
+    <footer className="fixed bottom-0 left-0 w-full py-4 px-4  md:hidden bg-white shadow-md">
       <div className="flex justify-between">
         {footerList.map((item) => (
           <div key={item.id} className="flex flex-col items-center">
