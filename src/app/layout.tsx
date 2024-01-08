@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import { Roboto, Noto_Sans_KR } from "next/font/google";
 import ToasterProvider from "../components/Provider/ToasterProvider";
 import QueryProvider from "../components/Provider/QueryProvider";
-import { Header } from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
-import TranslateProvider from "@/components/Provider/TranslateProvider";
+import Header from "@/components/layouts/Header";
+import { languages } from "./i18n/settings";
+import { dir } from "i18next";
 
 const notoSansKr = Noto_Sans_KR({
   // preload: true, 기본값
@@ -27,30 +28,31 @@ export const metadata: Metadata = {
   title: "Drum Village",
   description: "Drum Village",
 };
+export async function generateStaticParams() {
+  return languages.map((lng) => ({ lng }));
+}
 
 export default function RootLayout({
   children,
+  params: { lng },
 }: {
   children: React.ReactNode;
+  params: { lng: string };
 }) {
   return (
-    <html lang="ko">
+    <html lang={lng || "ko"}>
       <body
         className={
           (cls(notoSansKr.className, roboto.className),
-          "h-screen overflow-y-hidden")
+          "h-screen font-roboto mt-[60px] overflow-y-auto pb-[150px] md:pb-0")
         }
         suppressHydrationWarning={true}
       >
         <ToasterProvider>
           <QueryProvider>
-            <TranslateProvider>
-              <main className="font-roboto h-full mt-[72px] overflow-y-auto pb-[150px]">
-                <Header />
-                {children}
-                <Footer />
-              </main>
-            </TranslateProvider>
+            <Header lng={lng || "ko"} />
+            {children}
+            <Footer />
           </QueryProvider>
         </ToasterProvider>
       </body>

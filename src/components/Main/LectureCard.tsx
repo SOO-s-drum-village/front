@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 interface Iprops {
   lecture: {
@@ -11,8 +12,12 @@ interface Iprops {
 }
 
 export const LectureCard = ({ lecture }: Iprops) => {
+  const params = useParams();
+
+  const lng = params.lng || "ko";
+
   return (
-    <Link href={`/${lecture.id}`}>
+    <Link href={`/${lng}/${lecture.id}`}>
       <div className="card flex flex-col  rounded-md">
         <div className="relative h-[220px] md:h-[400px]">
           <Image
