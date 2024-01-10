@@ -10,19 +10,20 @@ const posters = [
   {
     id: 1,
     image_url:
-      "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1703125972384.png",
+      // "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1703125972384.png",
+      "/drum_village_banner.png",
   },
 ];
 
 export const BannerContainer = () => {
   return (
-    <section className="w-full mx-auto">
+    <section className="max-w-[1920px] mx-auto">
       <Swiper spaceBetween={10} slidesPerView="auto" modules={[Pagination]}>
         {/* <Swiper spaceBetween={10} slidesPerView={3} modules={[Pagination]}> */}
         {posters.map((item, idx) => (
           // <SwiperSlide key={item.id} style={{ width: "270px" }}>
           <SwiperSlide key={item.id}>
-            <div className="cursor-pointer relative h-[250px] md:h-[500px]">
+            <div className="cursor-pointer relative h-[180px] md:h-[500px]">
               <Image
                 src={item.image_url!}
                 alt="banner_image"

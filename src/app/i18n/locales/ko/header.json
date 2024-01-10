@@ -2,5 +2,7 @@
   "my-account": "내 계정",
   "my-profile": "내 프로필",
   "logout": "로그 아웃",
-  "member-ship": "멤버십"
+  "member-ship": "멤버십",
+  "signin": "로그인",
+  "signup": "회원가입"
 }

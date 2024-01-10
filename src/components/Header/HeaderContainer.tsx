@@ -103,7 +103,7 @@ export const HeaderContainer = ({ children }: IProps) => {
         <div className="flex items-center">
           {children}
           <SearchIcon />
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger className="mx-1 md:mx-3">
               <UserIcon />
             </DropdownMenuTrigger>
@@ -115,37 +115,28 @@ export const HeaderContainer = ({ children }: IProps) => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="mx-2 flex items-center">
-          {/* <Select onValueChange={handleLanguage}>
-            <SelectTrigger className="w-[130px] ">
-              <SelectValue
-                placeholder={
-                  !lng ? "한국어" : lng === "ko" ? "한국어" : "English"
-                }
-              />
-            </SelectTrigger>
-            <SelectContent className="bg-white">
-              <SelectItem value="ko">한국어</SelectItem>
-              <SelectItem value="en">English</SelectItem>
-            </SelectContent>
-          </Select> */}
-          <Menubar>
-            <MenubarMenu>
-              <MenubarTrigger className="w-[100px]">
-                {!lng ? "한국어" : lng === "ko" ? "한국어" : "English"}
-              </MenubarTrigger>
-              <MenubarContent className="bg-white w-[100px]">
-                <MenubarItem onSelect={() => handleLanguage("ko")}>
-                  한국어
-                </MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem onSelect={() => handleLanguage("en")}>
-                  English
-                </MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        </div>
+        <button
+          className="mx-2"
+          onClick={() => router.push(`/${lng}/auth/sign-in`)}
+        >
+          {t("signin")}
+        </button>
+        <Menubar className="mx-2">
+          <MenubarMenu>
+            <MenubarTrigger className="w-[100px]">
+              {!lng ? "한국어" : lng === "ko" ? "한국어" : "English"}
+            </MenubarTrigger>
+            <MenubarContent className="bg-white w-[100px] ">
+              <MenubarItem onSelect={() => handleLanguage("ko")}>
+                한국어
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem onSelect={() => handleLanguage("en")}>
+                English
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
       </div>
     </div>
   );

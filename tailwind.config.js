@@ -32,6 +32,11 @@ module.exports = {
           "gradient-conic":
             "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         },
+        whitesmoke: "#f2f3f7",
+        firebrick: "#a50c34",
+        disabled: "#eeeeee",
+        gray: "#818181",
+        silver: "#bdbdbd",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

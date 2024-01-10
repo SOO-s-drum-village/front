@@ -2,5 +2,7 @@
   "my-account": "My Account",
   "my-profile": "My Profile",
   "logout": "Logout",
-  "member-ship": "MemberShip"
+  "member-ship": "MemberShip",
+  "signin": "Login",
+  "signup": "SignUp"
 }
