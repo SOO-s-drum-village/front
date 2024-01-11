@@ -1,4 +1,4 @@
-import SignInCard from "@/components/Auth/SignInCard";
+import SignInContainer from "@/components/Auth/SignIn/SignInContainer";
 import React from "react";
 
 type Props = {
@@ -7,8 +7,8 @@ type Props = {
 
 const page = ({ params }: Props) => {
   return (
-    <div className="h-full">
-      <SignInCard lng={params.lng} />
+    <div className="h-full flex items-center">
+      <SignInContainer lng={params.lng} />
     </div>
   );
 };

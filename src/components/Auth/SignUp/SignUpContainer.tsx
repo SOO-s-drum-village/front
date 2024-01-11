@@ -11,18 +11,18 @@ import {
 } from "@/components/ui/card";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import SignInForm from "./SignInForm";
+import SignUpForm from "./SignUpform";
 
 interface Props {
   lng: string;
 }
 
-const SignInCard = ({ lng }: Props) => {
+const SignUpContainer = ({ lng }: Props) => {
   const { t } = useTranslation(lng, "auth");
   const router = useRouter();
 
   return (
-    <Card className="max-w-screen-sm mx-auto rounded-xl bg-white h-[500px] mt-40 border-none p-0 md:p-4">
+    <Card className="w-full md:max-w-screen-sm mx-auto  rounded-xl bg-white  border-none p-0 md:p-4">
       <CardHeader>
         <CardTitle className="flex items-center font-medium">
           <svg
@@ -41,22 +41,25 @@ const SignInCard = ({ lng }: Props) => {
             />
           </svg>
 
-          <span className="ml-2">{t("signin")}</span>
+          <span className="ml-2">{t("signup")}</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <SignInForm lng={lng} />
+        <SignUpForm lng={lng} />
       </CardContent>
       <CardFooter className="flex flex-col text-gray font-medium">
-        <button className="py-4">
-          <span>{t("find-email")}</span>
-        </button>
-        <button>
+        {/* <button className="py-4">
+      <span>{t("find-email")}</span>
+    </button> */}
+        {/* <button
+          className="py-4"
+          onClick={() => router.push(`/${lng}/auth/sign-up`)}
+        >
           <span className="underline">{t("signup")}</span>
-        </button>
+        </button> */}
       </CardFooter>
     </Card>
   );
 };
 
-export default SignInCard;
+export default SignUpContainer;

@@ -28,6 +28,8 @@ import {
 import { useParams, usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/app/i18n/client";
+import { handleSignOut } from "@/apis/auth";
+import useToast from "@/hooks/useToast";
 
 const SearchIcon = () => {
   return (
@@ -76,6 +78,7 @@ export const HeaderContainer = ({ children }: IProps) => {
   const { t } = useTranslation(lng as string, "header");
   const router = useRouter();
   const pathName = usePathname();
+  const { errorToast } = useToast();
 
   const handleLanguage = (value: any) => {
     const pathParts = pathName.split("/");
@@ -89,6 +92,15 @@ export const HeaderContainer = ({ children }: IProps) => {
 
   const goToHome = () => {
     return router.push(`/${lng}`);
+  };
+
+  const signOut = async () => {
+    try {
+      await handleSignOut();
+      router.push(`/${lng}/auth/sign-in`);
+    } catch (error: any) {
+      errorToast(error.message);
+    }
   };
 
   return (
@@ -107,11 +119,15 @@ export const HeaderContainer = ({ children }: IProps) => {
             <DropdownMenuTrigger className="mx-1 md:mx-3">
               <UserIcon />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white">
+            <DropdownMenuContent className="bg-white cursor-pointer">
               <DropdownMenuLabel>{t("my-account")}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>{t("my-profile")}</DropdownMenuItem>
-              <DropdownMenuItem>{t("logout")}</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                {t("my-profile")}
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
+                {t("logout")}
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
