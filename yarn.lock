@@ -19,6 +19,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.19.0":
+  version "7.23.8"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.23.8.tgz#8ee6fe1ac47add7122902f257b8ddf55c898f650"
+  integrity sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/runtime@^7.22.5":
   version "7.23.7"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.23.7.tgz#dd7c88deeb218a0f8bd34d5db1aa242e0f203193"
@@ -606,6 +613,25 @@
   dependencies:
     "@tanstack/query-core" "5.14.2"
 
+"@toss/react@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@toss/react/-/react-1.6.1.tgz#2175735bdcbf12efd8cbfc3ba75a5dcd1abacc41"
+  integrity sha512-XothLThF2xgOQR3YZF22GCaXk6ywWA7VGuxaPHZRZ2MCDGXVhsDgPvjYrjYkMIFLjYF4zN3PgE8kelAmGsPzwA==
+  dependencies:
+    "@babel/runtime" "^7.14.8"
+    "@toss/storage" "^1.3.1"
+    "@toss/utils" "^1.4.6"
+    classnames "^2.3.1"
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
+
+"@toss/storage@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@toss/storage/-/storage-1.3.1.tgz#02af72658c2eb2b69d3cb70fbb78861d26adc364"
+  integrity sha512-NLRB5s5PAmAzofsnRr5xKwdpFQeDSBFyuyHjF/rzZsgMlsFb94mzweYKmFrPx6oCM3Boh/TUYn6A8yxAcncBeA==
+  dependencies:
+    "@babel/runtime" "^7.19.0"
+
 "@toss/use-loading@^1.1.7":
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/@toss/use-loading/-/use-loading-1.1.7.tgz#2dd840faedfa55a2e13e18db1f6c5980c1fc4b83"
@@ -1049,6 +1075,11 @@ class-variance-authority@^0.7.0:
   integrity sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==
   dependencies:
     clsx "2.0.0"
+
+classnames@^2.3.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
+  integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
 
 client-only@0.0.1, client-only@^0.0.1:
   version "0.0.1"
@@ -2239,10 +2270,20 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
+
 lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"

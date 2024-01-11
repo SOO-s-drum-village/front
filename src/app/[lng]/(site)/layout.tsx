@@ -14,11 +14,5 @@ export default function LangLayout({
   children: React.ReactNode;
   params: { lng: string };
 }) {
-  return (
-    <div className="mt-[72px] pb-[150px] md:pb-0">
-      <Header lng={lng || "ko"} />
-      {children}
-      <Footer />
-    </div>
-  );
+  return <>{children}</>;
 }

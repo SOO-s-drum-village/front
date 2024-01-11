@@ -10,6 +10,7 @@ import { useLoading } from "@toss/use-loading";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   lng: string;
@@ -28,9 +29,10 @@ const schema = yup
 type FormData = yup.InferType<typeof schema>;
 
 const SignInForm = ({ lng }: Props) => {
-  const { errorToast } = useToast();
+  const { errorToast, successToast } = useToast();
   const [isLoading, startTransition] = useLoading();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -45,6 +47,11 @@ const SignInForm = ({ lng }: Props) => {
     try {
       const result = await startTransition(handleSignIn(payload));
       console.log("result", result);
+      successToast(t("signin-success"));
+      await queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+
       router.push(`/${lng}`);
     } catch (error: any) {
       console.log("error", error);

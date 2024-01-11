@@ -20,6 +20,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-query": "^5.15.0",
     "@tanstack/react-query-devtools": "^5.15.0",
+    "@toss/react": "^1.6.1",
     "@toss/use-loading": "^1.1.7",
     "@toss/utils": "^1.4.6",
     "accept-language": "^3.0.18",

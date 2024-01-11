@@ -2,13 +2,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { Lecture } from "@/types/lecture";
 
 interface Iprops {
-  lecture: {
-    id: number;
-    title: string;
-    image_url: string;
-  };
+  lecture: Lecture;
 }
 
 export const LectureCard = ({ lecture }: Iprops) => {
@@ -19,17 +16,17 @@ export const LectureCard = ({ lecture }: Iprops) => {
   return (
     <Link href={`/${lng}/${lecture.id}`}>
       <div className="card flex flex-col  rounded-md">
-        <div className="relative h-[220px] md:h-[400px]">
+        {/* <div className="relative h-[220px] md:h-[400px]">
           <Image
-            src={lecture.image_url}
-            alt="concert_image"
+            src={lecture.imageUrl}
+            alt="lecture_image"
             sizes="250px, 250px"
             fill
             priority
             quality={100}
             className="rounded-md"
           />
-        </div>
+        </div> */}
         <div className="py-1 flex flex-col break-keep">
           <div className="flex-1">
             <div className="mt-2 mb-1 text-sm font-semibold lg:text-base">

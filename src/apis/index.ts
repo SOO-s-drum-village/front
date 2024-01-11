@@ -1,3 +1,4 @@
+import { SortDirection } from "@/types";
 import axios, { AxiosRequestConfig } from "axios";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -21,6 +22,12 @@ interface ApiResponse<T> {
   statusCode: 200 | 201 | 400 | 500;
   message?: string;
 }
+
+export type ListRequest = {
+  page?: number;
+  size?: number;
+  direction?: SortDirection;
+};
 
 interface ApiRequestMethods {
   get<T>(url: string, request?: AxiosRequestConfig): Promise<T>;

@@ -28,8 +28,9 @@ import {
 import { useParams, usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/app/i18n/client";
-import { handleSignOut } from "@/apis/auth";
+import { getMe, handleSignOut } from "@/apis/auth";
 import useToast from "@/hooks/useToast";
+import { useQuery } from "@tanstack/react-query";
 
 const SearchIcon = () => {
   return (
@@ -79,6 +80,13 @@ export const HeaderContainer = ({ children }: IProps) => {
   const router = useRouter();
   const pathName = usePathname();
   const { errorToast } = useToast();
+
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: getMe,
+  });
+
+  console.log("user", user);
 
   const handleLanguage = (value: any) => {
     const pathParts = pathName.split("/");

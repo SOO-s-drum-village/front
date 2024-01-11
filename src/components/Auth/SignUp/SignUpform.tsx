@@ -11,6 +11,7 @@ import { handleSignUp } from "@/apis/auth";
 import { useLoading } from "@toss/use-loading";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   lng: string;
@@ -43,9 +44,10 @@ const schema = yup
 type FormData = yup.InferType<typeof schema>;
 
 const SignUpForm = ({ lng }: Props) => {
-  const { errorToast } = useToast();
+  const { errorToast, successToast } = useToast();
   const [isLoading, startTransition] = useLoading();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -71,10 +73,9 @@ const SignUpForm = ({ lng }: Props) => {
     };
 
     try {
-      const result = await startTransition(handleSignUp(singInPayload));
-      console.log("result", result);
-      router.push(`/${lng}`);
-      reset();
+      await startTransition(handleSignUp(singInPayload));
+      successToast(t("signup-success"));
+      router.push(`/${lng}/auth/sign-up`);
     } catch (error: any) {
       console.log("error", error);
       errorToast(error.message);
@@ -238,7 +239,7 @@ const SignUpForm = ({ lng }: Props) => {
           className="bg-firebrick disabled:bg-disabled disabled:text-silver w-full py-7 rounded-xl hover:bg-parrent hover:text-white"
           disabled={!isValid}
         >
-          <span className="text-white text-sm md:text-lg">{t("signin")}</span>
+          <span className="text-white text-sm md:text-lg">{t("signup")}</span>
         </Button>
       </div>
     </form>

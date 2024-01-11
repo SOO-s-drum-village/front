@@ -4,6 +4,8 @@ import { Roboto, Noto_Sans_KR } from "next/font/google";
 import ToasterProvider from "../components/Provider/ToasterProvider";
 import QueryProvider from "../components/Provider/QueryProvider";
 import { languages } from "./i18n/settings";
+import Header from "@/components/layouts/Header";
+import { Footer } from "@/components/layouts/Footer";
 
 const notoSansKr = Noto_Sans_KR({
   // preload: true, 기본값
@@ -41,12 +43,16 @@ export default function RootLayout({
       <body
         className={
           (cls(notoSansKr.className, roboto.className),
-          "h-screen font-roboto  overflow-y-auto")
+          "h-screen font-roboto  overflow-y-auto mt-[72px] pb-[150px] md:pb-0")
         }
         suppressHydrationWarning={true}
       >
         <ToasterProvider>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <Header lng={lng || "ko"} />
+            {children}
+            <Footer />
+          </QueryProvider>
         </ToasterProvider>
       </body>
     </html>

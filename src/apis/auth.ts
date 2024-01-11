@@ -1,3 +1,4 @@
+import { User } from "@/types/user";
 import { exceptionHandler } from "./exception-handler";
 import { apiRequest } from "./index";
 
@@ -41,5 +42,14 @@ export const handleSignOut = async () => {
     return response;
   } catch (error) {
     throw new Error(exceptionHandler(error, "API handleSignOut error"));
+  }
+};
+
+export const getMe = async () => {
+  try {
+    const response = await apiRequest.get<User>("/users/me");
+    return response;
+  } catch (error) {
+    throw new Error(exceptionHandler(error, "API getMe error"));
   }
 };
