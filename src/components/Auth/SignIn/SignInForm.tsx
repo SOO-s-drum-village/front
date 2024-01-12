@@ -5,7 +5,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useToast from "@/hooks/useToast";
-import { handleSignIn } from "@/apis/auth";
+import { handleSignIn, testSignIn } from "@/apis/auth";
 import { useLoading } from "@toss/use-loading";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -45,10 +45,10 @@ const SignInForm = ({ lng }: Props) => {
 
   const signInSubmit = async (payload: FormData) => {
     try {
-      const result = await startTransition(handleSignIn(payload));
-      console.log("result", result);
+      await startTransition(handleSignIn(payload));
+
       successToast(t("signin-success"));
-      await queryClient.invalidateQueries({
+      await queryClient.refetchQueries({
         queryKey: ["user"],
       });
 

@@ -1,6 +1,7 @@
 import { User } from "@/types/user";
 import { exceptionHandler } from "./exception-handler";
 import { apiRequest } from "./index";
+import axios from "axios";
 
 interface SignInPayload {
   email: string;
@@ -51,5 +52,17 @@ export const getMe = async () => {
     return response;
   } catch (error) {
     throw new Error(exceptionHandler(error, "API getMe error"));
+  }
+};
+
+export const testSignIn = async (payload: SignInPayload) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/auth/sign-in",
+      payload
+    );
+    return response;
+  } catch (error) {
+    throw new Error(exceptionHandler(error, "API handleSignIn error"));
   }
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,7 +30,8 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "@/app/i18n/client";
 import { getMe, handleSignOut } from "@/apis/auth";
 import useToast from "@/hooks/useToast";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { set } from "react-hook-form";
 
 const SearchIcon = () => {
   return (
@@ -80,13 +81,14 @@ export const HeaderContainer = ({ children }: IProps) => {
   const router = useRouter();
   const pathName = usePathname();
   const { errorToast } = useToast();
+  const queryClient = useQueryClient();
+  const [isUser, setIsUser] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
+    staleTime: 1000 * 60 * 60,
   });
-
-  console.log("user", user);
 
   const handleLanguage = (value: any) => {
     const pathParts = pathName.split("/");
@@ -105,11 +107,21 @@ export const HeaderContainer = ({ children }: IProps) => {
   const signOut = async () => {
     try {
       await handleSignOut();
+      await queryClient.refetchQueries({
+        queryKey: ["user"],
+      });
+      setIsUser(false);
       router.push(`/${lng}/auth/sign-in`);
     } catch (error: any) {
       errorToast(error.message);
     }
   };
+
+  useEffect(() => {
+    console.log("in user", user);
+    if (user) setIsUser(true);
+  }, [user]);
+  console.log("out user", user);
 
   return (
     <div className="fixed top-0 left-0 w-full z-50 rounded-none py-4 px-4  lg:px-12 flex justify-between items-center bg-white shadow-md">
@@ -123,28 +135,32 @@ export const HeaderContainer = ({ children }: IProps) => {
         <div className="flex items-center">
           {children}
           <SearchIcon />
-          <DropdownMenu modal={false}>
-            <DropdownMenuTrigger className="mx-1 md:mx-3">
-              <UserIcon />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white cursor-pointer">
-              <DropdownMenuLabel>{t("my-account")}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">
-                {t("my-profile")}
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
-                {t("logout")}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {isUser ? (
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger className="mx-1 md:mx-3">
+                <UserIcon />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white cursor-pointer">
+                <DropdownMenuLabel>{t("my-account")}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer">
+                  {t("my-profile")}
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
+                  {t("logout")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <button
+              className="mx-2"
+              onClick={() => router.push(`/${lng}/auth/sign-in`)}
+            >
+              {t("signin")}
+            </button>
+          )}
         </div>
-        <button
-          className="mx-2"
-          onClick={() => router.push(`/${lng}/auth/sign-in`)}
-        >
-          {t("signin")}
-        </button>
+
         <Menubar className="mx-2">
           <MenubarMenu>
             <MenubarTrigger className="w-[100px]">
