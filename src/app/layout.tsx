@@ -43,7 +43,7 @@ export default function RootLayout({
       <body
         className={
           (cls(notoSansKr.className, roboto.className),
-          "h-screen font-roboto  overflow-y-auto mt-[72px] pb-[150px] md:pb-0")
+          "h-screen font-roboto  overflow-y-auto mt-[72px] mb-[88px] md:mb-0")
         }
         suppressHydrationWarning={true}
       >

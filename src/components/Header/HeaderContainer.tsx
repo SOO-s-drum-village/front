@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { SetStateAction, use, useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,6 +32,7 @@ import { getMe, handleSignOut } from "@/apis/auth";
 import useToast from "@/hooks/useToast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { set } from "react-hook-form";
+import useUserStore from "@/store/user";
 
 const SearchIcon = () => {
   return (
@@ -82,13 +83,7 @@ export const HeaderContainer = ({ children }: IProps) => {
   const pathName = usePathname();
   const { errorToast } = useToast();
   const queryClient = useQueryClient();
-  const [isUser, setIsUser] = useState(false);
-
-  const { data: user } = useQuery({
-    queryKey: ["user"],
-    queryFn: getMe,
-    staleTime: 1000 * 60 * 60,
-  });
+  const { isAuth, setIsAuth, setUser, user } = useUserStore();
 
   const handleLanguage = (value: any) => {
     const pathParts = pathName.split("/");
@@ -110,7 +105,8 @@ export const HeaderContainer = ({ children }: IProps) => {
       await queryClient.refetchQueries({
         queryKey: ["user"],
       });
-      setIsUser(false);
+      setIsAuth(false);
+      setUser(null);
       router.push(`/${lng}/auth/sign-in`);
     } catch (error: any) {
       errorToast(error.message);
@@ -118,10 +114,13 @@ export const HeaderContainer = ({ children }: IProps) => {
   };
 
   useEffect(() => {
-    console.log("in user", user);
-    if (user) setIsUser(true);
-  }, [user]);
-  console.log("out user", user);
+    getMe().then((res) => {
+      if (res) {
+        setIsAuth(true);
+        setUser(res);
+      }
+    });
+  }, []);
 
   return (
     <div className="fixed top-0 left-0 w-full z-50 rounded-none py-4 px-4  lg:px-12 flex justify-between items-center bg-white shadow-md">
@@ -135,15 +134,18 @@ export const HeaderContainer = ({ children }: IProps) => {
         <div className="flex items-center">
           {children}
           <SearchIcon />
-          {isUser ? (
+          {isAuth ? (
             <DropdownMenu modal={false}>
-              <DropdownMenuTrigger className="mx-1 md:mx-3">
+              <DropdownMenuTrigger className="mx-1 md:mx-3 ">
                 <UserIcon />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white cursor-pointer">
+              <DropdownMenuContent className="bg-white">
                 <DropdownMenuLabel>{t("my-account")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => router.push(`/${lng}/my-profile`)}
+                >
                   {t("my-profile")}
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
@@ -166,12 +168,18 @@ export const HeaderContainer = ({ children }: IProps) => {
             <MenubarTrigger className="w-[100px]">
               {!lng ? "한국어" : lng === "ko" ? "한국어" : "English"}
             </MenubarTrigger>
-            <MenubarContent className="bg-white w-[100px] ">
-              <MenubarItem onSelect={() => handleLanguage("ko")}>
+            <MenubarContent className="bg-white w-[100px]">
+              <MenubarItem
+                className="cursor-pointer"
+                onSelect={() => handleLanguage("ko")}
+              >
                 한국어
               </MenubarItem>
               <MenubarSeparator />
-              <MenubarItem onSelect={() => handleLanguage("en")}>
+              <MenubarItem
+                className="cursor-pointer"
+                onSelect={() => handleLanguage("en")}
+              >
                 English
               </MenubarItem>
             </MenubarContent>

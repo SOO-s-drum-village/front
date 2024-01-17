@@ -5,12 +5,13 @@ import { useTranslation } from "@/app/i18n/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useToast from "@/hooks/useToast";
-import { handleSignIn, testSignIn } from "@/apis/auth";
+import { getMe, handleSignIn } from "@/apis/auth";
 import { useLoading } from "@toss/use-loading";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import useUserStore from "@/store/user";
 
 type Props = {
   lng: string;
@@ -33,6 +34,7 @@ const SignInForm = ({ lng }: Props) => {
   const [isLoading, startTransition] = useLoading();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { setIsAuth, setUser } = useUserStore();
 
   const {
     register,
@@ -47,11 +49,15 @@ const SignInForm = ({ lng }: Props) => {
     try {
       await startTransition(handleSignIn(payload));
 
-      successToast(t("signin-success"));
-      await queryClient.refetchQueries({
-        queryKey: ["user"],
-      });
+      const result = await getMe();
+      console.log("result", result);
 
+      if (result) {
+        setIsAuth(true);
+        setUser(result);
+      }
+
+      successToast(t("signin-success"));
       router.push(`/${lng}`);
     } catch (error: any) {
       console.log("error", error);

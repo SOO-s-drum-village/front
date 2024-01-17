@@ -33,10 +33,12 @@ module.exports = {
             "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         },
         whitesmoke: "#f2f3f7",
+        whitesmoke2: "#f2f3f7",
         firebrick: "#a50c34",
         disabled: "#eeeeee",
         gray: "#818181",
         silver: "#bdbdbd",
+
         royalblue: "#3366ff",
         darkgray: "#a4a5a7",
         dimgray: "#656667",

@@ -166,7 +166,7 @@ const SignUpForm = ({ lng }: Props) => {
         />
       </div>
       <div className="grid items-center gap-1.5 my-4">
-        <Label htmlFor="카드 유효기간">{t("card-expriation")}</Label>
+        <Label htmlFor="카드 유효기간">{t("card-expiration")}</Label>
         <Input
           type="text"
           placeholder="MMYY"

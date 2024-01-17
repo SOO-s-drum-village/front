@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { Payment, User } from "@/types/user";
 import { exceptionHandler } from "./exception-handler";
 import { apiRequest } from "./index";
 import axios from "axios";
@@ -55,14 +55,11 @@ export const getMe = async () => {
   }
 };
 
-export const testSignIn = async (payload: SignInPayload) => {
+export const getPaymentMe = async () => {
   try {
-    const response = await axios.post(
-      "http://localhost:3000/api/auth/sign-in",
-      payload
-    );
+    const response = await apiRequest.get<Payment>("/payments/me");
     return response;
   } catch (error) {
-    throw new Error(exceptionHandler(error, "API handleSignIn error"));
+    throw new Error(exceptionHandler(error, "API getPaymentMe error"));
   }
 };
