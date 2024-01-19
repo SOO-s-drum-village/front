@@ -34,6 +34,7 @@ interface ApiRequestMethods {
   get<T>(url: string, request?: AxiosRequestConfig): Promise<T>;
   post<T>(url: string, body?: any): Promise<ApiResponse<T>>;
   put<T>(url: string, body?: any): Promise<ApiResponse<T>>;
+  patch<T>(url: string, body?: any): Promise<ApiResponse<T>>;
   delete<T>(url: string, id: any): Promise<T>;
 }
 
@@ -50,6 +51,10 @@ export const apiRequest: ApiRequestMethods = {
   put: (url, body) => {
     console.log("🧸 put", { url, body });
     return baseInstance.put(url, body);
+  },
+  patch: (url, body) => {
+    console.log("🧸 patch", { url, body });
+    return baseInstance.patch(url, body);
   },
   delete: (url, id) => {
     console.log("🧸 delete", { url, id });

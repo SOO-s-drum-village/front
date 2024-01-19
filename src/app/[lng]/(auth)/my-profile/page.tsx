@@ -1,30 +1,17 @@
 "use client";
 
-import { getPaymentMe } from "@/apis/auth";
+import { getPaymentMe, updateSubscription } from "@/apis/auth";
 import { useTranslation } from "@/app/i18n/client";
+import { Button } from "@/components/ui/button";
+import useToast from "@/hooks/useToast";
 import useUserStore from "@/store/user";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
-
-const UserIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      className="w-6 h-6 cursor-pointer"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-      />
-    </svg>
-  );
-};
+import React, { useEffect, useState } from "react";
+import { Modal } from "@/components/Common/Modal";
+import LoginInfo from "@/components/Profile/LoginInfo";
+import CardInfo from "@/components/Profile/CardInfo";
+import PaymentDetail from "@/components/Profile/PaymentDetail";
 
 const ArrowIcon = () => {
   return (
@@ -54,6 +41,9 @@ const page = ({ params }: Props) => {
   const router = useRouter();
   const lng = params.lng || "ko";
   const { t } = useTranslation(lng, "auth");
+  const { successToast, errorToast } = useToast();
+  const queryClient = useQueryClient();
+  const [isOpen, setIsOpen] = useState(false);
 
   const { data: myPayment } = useQuery({
     queryKey: ["my-payment"],
@@ -66,6 +56,24 @@ const page = ({ params }: Props) => {
     }
   }, []);
 
+  const handleSubscription = async () => {
+    if (!myPayment && !user) return;
+
+    try {
+      await updateSubscription(!myPayment?.subscription);
+      await queryClient.invalidateQueries({ queryKey: ["my-payment"] });
+      successToast(
+        myPayment?.subscription
+          ? t("subscription-success-toast")
+          : t("subscription-cancel-toast")
+      );
+      setIsOpen(false);
+    } catch (error: any) {
+      errorToast("failed to update subscription");
+      console.log("error", error.message);
+    }
+  };
+
   return (
     <section className="max-w-screen-md mx-auto py-8 md:py-16 px-4 md:px-0">
       <div className="bg-whitesmoke2 text-black text-lg md:text-2xl font-bold px-6 py-8 rounded-xl shadow-lg flex items-center">
@@ -74,55 +82,42 @@ const page = ({ params }: Props) => {
         </button>
         <span className="ml-4 leading-6">{user?.name}</span>
       </div>
-      <div className="my-8  text-black text-lg shadow-lg rounded-xl">
-        <div className="bg-whitesmoke2 p-6 flex items-center font-bold  rounded-t-xl ">
-          <UserIcon />
-          <span className="ml-2">{t("login-info")}</span>
+      <LoginInfo lng={lng} />
+      <CardInfo
+        lng={lng}
+        myPayment={myPayment}
+        handleModal={() => setIsOpen(!isOpen)}
+      />
+      <PaymentDetail lng={lng} />
+      <Modal
+        title={myPayment?.subscription ? t("title-cancel") : t("title-apply")}
+        isOpen={isOpen}
+        closeModal={() => setIsOpen(false)}
+      >
+        <div className="mt-2">
+          <p className="text-sm text-gray font-medium">
+            {myPayment?.subscription
+              ? t("description-cancel")
+              : t("description-apply")}
+          </p>
         </div>
-        <div className="p-6">
-          <div className="grid grid-cols-5 mb-6">
-            <span className="text-gray">{t("email")}</span>
-            <span className="">{user?.email}</span>
-          </div>
-          <div className="grid grid-cols-5">
-            <span className="text-gray">{t("name")}</span>
-            <span className="">{user?.name}</span>
-          </div>
-        </div>
-        <div className="p-6 border-t-[1px] border-whitesmoke ">
-          <button className="text-gray">{t("change-pw")}</button>
-        </div>
-      </div>
-      <div className="my-8  text-black text-lg shadow-lg rounded-xl">
-        <div className="bg-whitesmoke2 p-6 flex items-center font-bold  rounded-t-xl ">
-          <UserIcon />
-          <span className="ml-2">{t("card-info")}</span>
-        </div>
-        <div className="p-6 break-keep">
-          <div className="grid grid-cols-4 mb-4 md:mb-6">
-            <span className="text-gray">{t("card-number")}</span>
-            <span className="">{myPayment?.cardNumber}</span>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 mb-4 md:mb-6">
-            <span className="text-gray">{t("card-expiration")}</span>
-            <span className="">{myPayment?.cardExpiry}</span>
-            <span className="text-gray">{t("birth")}</span>
-            <span className="">{myPayment?.birth}</span>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 mb-4 md:mb-6">
-            <span className="text-gray">{t("cardPwd2digit")}</span>
-            <span className="">{myPayment?.cardPwd2digit && "**"}</span>
-            <span className="text-gray">{t("card-cvc")}</span>
-            <span className="">{myPayment?.cardCvc && "***"}</span>
-          </div>
-          <div className="grid grid-cols-4">
-            <span className="text-gray">{t("subscription-status")}</span>
-            <span className="font-medium">
-              {myPayment?.subscription ? "구독 중" : "구독 아님"}
-            </span>
+        <div className="flex justify-end mt-2">
+          <div>
+            <Button
+              className="rounded-lg border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-error hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+              onClick={() => setIsOpen(false)}
+            >
+              {t("cancel")}
+            </Button>
+            <Button
+              className="ml-2 rounded-lg border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-royalblue hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              onClick={handleSubscription}
+            >
+              {t("confirm")}
+            </Button>
           </div>
         </div>
-      </div>
+      </Modal>
     </section>
   );
 };

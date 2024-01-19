@@ -1,7 +1,7 @@
-import { Payment, User } from "@/types/user";
+import { User } from "@/types/user";
 import { exceptionHandler } from "./exception-handler";
 import { apiRequest } from "./index";
-import axios from "axios";
+import { Card } from "@/types/payment";
 
 interface SignInPayload {
   email: string;
@@ -57,9 +57,20 @@ export const getMe = async () => {
 
 export const getPaymentMe = async () => {
   try {
-    const response = await apiRequest.get<Payment>("/payments/me");
+    const response = await apiRequest.get<Card>("/payments/me");
     return response;
   } catch (error) {
     throw new Error(exceptionHandler(error, "API getPaymentMe error"));
+  }
+};
+
+export const updateSubscription = async (subscription: boolean) => {
+  try {
+    const response = await apiRequest.patch("/payments/subscription", {
+      subscription,
+    });
+    return response;
+  } catch (error) {
+    throw new Error(exceptionHandler(error, "API updateSubscription error"));
   }
 };
