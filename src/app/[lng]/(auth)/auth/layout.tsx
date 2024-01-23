@@ -5,9 +5,5 @@ export default function LangLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className=" p-4 md:p-8 h-full overflow-y-hidden bg-whitesmoke">
-      {children}
-    </div>
-  );
+  return <div className=" p-4 md:p-8 h-full bg-whitesmoke">{children}</div>;
 }

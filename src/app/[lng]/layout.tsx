@@ -1,5 +1,5 @@
 import React from "react";
-import { languages } from "../../i18n/settings";
+import { languages } from "../i18n/settings";
 import Header from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
 
@@ -14,5 +14,10 @@ export default function LangLayout({
   children: React.ReactNode;
   params: { lng: string };
 }) {
-  return <>{children}</>;
+  return (
+    <main className="h-full">
+      <Header lng={lng} />
+      {children}
+    </main>
+  );
 }

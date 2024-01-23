@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   title: "Drum Village",
   description: "Drum Village",
 };
+
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
@@ -39,19 +40,20 @@ export default function RootLayout({
   params: { lng: string };
 }) {
   return (
-    <html lang={lng || "ko"}>
+    <html lang={lng ?? "ko"}>
       <body
         className={
           (cls(notoSansKr.className, roboto.className),
-          "h-screen font-roboto  overflow-y-auto mt-[72px] mb-[88px] md:mb-0")
+          "font-roboto  overflow-y-auto mt-[76px]")
         }
+        style={{ height: "calc(100vh - 76px)" }}
         suppressHydrationWarning={true}
       >
         <ToasterProvider>
           <QueryProvider>
-            <Header lng={lng || "ko"} />
+            <Header lng={lng ?? "ko"} />
             {children}
-            <Footer />
+            {/* <Footer /> */}
           </QueryProvider>
         </ToasterProvider>
       </body>

@@ -7,7 +7,6 @@ interface IProps {
 }
 
 const Header = async ({ lng }: IProps) => {
-  // console.log(lng);
   const { t } = await useTranslation(lng, "header");
   return (
     <HeaderContainer>

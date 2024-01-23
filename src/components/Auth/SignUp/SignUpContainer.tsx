@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import SignUpForm from "./SignUpform";
+import SignUpForm from "./SignUpForm";
 
 interface Props {
   lng: string;

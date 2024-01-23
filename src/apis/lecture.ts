@@ -26,6 +26,10 @@ export const getLectures = async (request: LecturesRequest) => {
 };
 
 export const getLecture = async (lectureId: number) => {
-  const response = await apiRequest.get<Lecture>(`/lectures/${lectureId}`);
-  return response;
+  try {
+    const response = await apiRequest.get<Lecture>(`/lectures/${lectureId}`);
+    return response;
+  } catch (error) {
+    throw new Error(exceptionHandler(error, "API getLecture error"));
+  }
 };

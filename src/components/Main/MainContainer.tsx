@@ -1,7 +1,7 @@
 import React from "react";
 import { BannerContainer } from "../Banner/BannerContainer";
 import { MainCategory } from "./MainCategory";
-import { LectureContainer } from "./LectureContainer";
+import { LectureContainer } from "../Lecture/LectureContainer";
 
 export const MainContainer = () => {
   return (

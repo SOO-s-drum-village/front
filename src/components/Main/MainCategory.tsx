@@ -79,44 +79,33 @@ const BellIcon = () => {
 };
 
 const categoryList = [
-  { id: 1, icon: <BoltIcon />, title: "드럼" },
+  { id: 1, icon: <BoltIcon />, title: "Join" },
   {
     id: 2,
     icon: <Chip />,
-    title: "드럼",
+    title: "About",
   },
   {
     id: 3,
     icon: <MusicIcon />,
-    title: "드럼",
+    title: "Song",
   },
   {
     id: 4,
     icon: <BellIcon />,
-    title: "드럼",
-  },
-  { id: 5, icon: <BoltIcon />, title: "드럼" },
-  {
-    id: 6,
-    icon: <Chip />,
-    title: "드럼",
+    title: "Shop",
   },
   {
-    id: 7,
-    icon: <MusicIcon />,
-    title: "드럼",
-  },
-  {
-    id: 8,
+    id: 5,
     icon: <BellIcon />,
-    title: "드럼",
+    title: "Free",
   },
 ];
 
 export const MainCategory = () => {
   return (
     <div className="max-w-screen-lg mx-auto my-8">
-      <div className="my-4 md:my-20 grid grid-cols-4 gap-4 place-items-center md:grid-cols-8 md:gap-32">
+      <div className="my-4 md:my-20 grid grid-cols-5 gap-4 place-items-center ">
         {categoryList.map((category) => (
           <div
             key={category.id}
