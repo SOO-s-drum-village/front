@@ -1,7 +1,11 @@
 {
-  "title": "Membership voucher (regular payment)",
+  "title": "Membership voucher (Regular payment)",
   "month": "Month",
   "list-1": "This product is automatically paid through credit card regular payment.",
   "list-2": "While subscribing, you can view sheet music and videos included in your membership.",
-  "list-3": "Sheet music downloads are not provided."
+  "list-3": "Sheet music downloads are not provided.",
+  "confirm-title": "Confirm regular payment",
+  "confirm-desc": "Do you really want to pay regularly?",
+  "confirm": "Confirm",
+  "cancel": "Cancel"
 }

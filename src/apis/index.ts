@@ -45,7 +45,6 @@ export const apiRequest: ApiRequestMethods = {
   },
   post: (url, body) => {
     console.log("🧸 post", { url, body });
-    console.log("baseUrl", baseURL);
     return baseInstance.post(url, body);
   },
   put: (url, body) => {

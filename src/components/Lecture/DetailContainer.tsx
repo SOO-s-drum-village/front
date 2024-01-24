@@ -1,26 +1,41 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getLecture } from "@/apis/lecture";
 import { useParams, useRouter } from "next/navigation";
-import useUserStore from "@/store/user";
+import { Lecture } from "@/types/lecture";
+import { AxiosError } from "axios";
 
 const DetailContainer = () => {
   const params = useParams();
-  const { isAuth } = useUserStore();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const { data: lecture, error } = useQuery({
+  const { data: lecture, error } = useQuery<Lecture, AxiosError>({
     queryKey: ["lecture", params.id],
     queryFn: () => getLecture(Number(params.id)),
-    staleTime: 0,
   });
 
-  if (error && !isAuth) {
-    router.push(`/${params.lng}/membership`);
+  if (error) {
+    if (error.response?.status === 401) {
+      router.push(`/${params.lng}/auth/sign-in`);
+    } else if (error.response?.status === 403) {
+      queryClient.removeQueries({
+        queryKey: ["lecture", params.id],
+      });
+      router.push(`/${params.lng}/membership`);
+    } else throw new Error(error.message);
   }
+
+  // useEffect(() => {
+  //   getLecture(Number(params.id)).then((res) => console.log("res", res));
+
+  //   return () => {
+
+  //   };
+  // }, []);
 
   return (
     <section>

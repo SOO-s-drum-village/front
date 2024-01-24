@@ -98,7 +98,7 @@ export const HeaderContainer = ({ children }: IProps) => {
           setUser(res);
         }
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => console.log("err"));
   }, []);
 
   const links = [

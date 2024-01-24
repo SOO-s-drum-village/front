@@ -4,7 +4,7 @@ const exceptionHandler = (error: any, message: string) => {
   if (axios.isAxiosError(error)) {
     return `😫 error message \n ${message} \n ${error.message}`;
   }
-  return `😱 unexpected error: ${error}`;
+  return `😱 unexpected error: ${error.response}`;
 };
 
 export { exceptionHandler };

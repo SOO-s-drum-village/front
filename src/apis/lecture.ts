@@ -20,7 +20,7 @@ export const getLectures = async (request: LecturesRequest) => {
       params: payload,
     });
     return response;
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(exceptionHandler(error, "API getLectures error"));
   }
 };
@@ -29,7 +29,7 @@ export const getLecture = async (lectureId: number) => {
   try {
     const response = await apiRequest.get<Lecture>(`/lectures/${lectureId}`);
     return response;
-  } catch (error) {
-    throw new Error(exceptionHandler(error, "API getLecture error"));
+  } catch (error: any) {
+    throw error;
   }
 };

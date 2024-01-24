@@ -50,7 +50,6 @@ const SignInForm = ({ lng }: Props) => {
       await startTransition(handleSignIn(payload));
 
       const result = await getMe();
-      console.log("result", result);
 
       if (result) {
         setIsAuth(true);
