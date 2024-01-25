@@ -38,7 +38,7 @@ module.exports = {
         disabled: "#eeeeee",
         gray: "#818181",
         silver: "#bdbdbd",
-
+        darkslategray: "#34373d",
         royalblue: "#3366ff",
         darkgray: "#a4a5a7",
         dimgray: "#656667",

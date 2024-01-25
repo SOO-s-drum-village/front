@@ -7,18 +7,14 @@ import { getLecture } from "@/apis/lecture";
 import { useParams, useRouter } from "next/navigation";
 import { Lecture } from "@/types/lecture";
 import { AxiosError } from "axios";
-import GetQueryClient from "@/app/GetQueryClient";
 
 const DetailContainer = () => {
   const params = useParams();
   const router = useRouter();
-  const queryClient = GetQueryClient();
 
   const { data: lecture, error } = useQuery<Lecture, AxiosError>({
     queryKey: ["lecture", params.id],
     queryFn: () => getLecture(Number(params.id)),
-    // staleTime: 1000,
-    // refetchOnMount: true,
   });
 
   if (error) {

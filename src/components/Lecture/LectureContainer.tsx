@@ -1,20 +1,29 @@
 "use client";
 
-import React from "react";
 import { LectureCard } from "./LectureCard";
 import { useInView } from "react-intersection-observer";
 import { useDidUpdate } from "@toss/react";
 import { getLectures } from "@/apis/lecture";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Lecture } from "@/types/lecture";
+import { useParams } from "next/navigation";
+import LectureSearchForm from "./LectureSearchForm";
+
+export interface LectureList {
+  lectures: Lecture[];
+  nextPage: number;
+  isLast: boolean;
+}
 
 export const LectureContainer = () => {
+  const params = useParams();
+
   const [ref, inView] = useInView({
     delay: 300,
     threshold: 0.5,
   });
 
-  const getLectureList = async (pageParam: number): Promise<any> => {
+  const getLectureList = async (pageParam: number): Promise<LectureList> => {
     const response = await getLectures({
       page: pageParam,
     });
@@ -25,15 +34,7 @@ export const LectureContainer = () => {
     };
   };
 
-  const {
-    isLoading,
-    isFetching,
-    isError,
-    error,
-    data,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["lectures"],
     queryFn: ({ pageParam }) => getLectureList(pageParam),
     initialPageParam: 1,
@@ -49,13 +50,16 @@ export const LectureContainer = () => {
   }, [inView, hasNextPage]);
 
   return (
-    <div className="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-2">
-      {data?.pages?.map((page) =>
-        page?.lectures?.map((lecture: Lecture) => (
-          <LectureCard lecture={lecture} key={lecture.id} />
-        ))
-      )}
-      <div ref={ref} className="h-12" />
-    </div>
+    <section>
+      <LectureSearchForm />
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+        {data?.pages?.map((page) =>
+          page?.lectures?.map((lecture: Lecture) => (
+            <LectureCard lecture={lecture} key={lecture.id} />
+          ))
+        )}
+        <div ref={ref} className="h-12" />
+      </div>
+    </section>
   );
 };
