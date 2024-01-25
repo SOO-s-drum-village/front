@@ -1,14 +1,14 @@
 import React from "react";
 import { BannerContainer } from "../Banner/BannerContainer";
 import { MainCategory } from "./MainCategory";
-import { LectureContainer } from "../Lecture/LectureContainer";
+import PopularItemContainer from "./PopularItemContainer";
 
 export const MainContainer = () => {
   return (
     <div>
       <BannerContainer />
       <MainCategory />
-      <LectureContainer />
+      <PopularItemContainer />
     </div>
   );
 };

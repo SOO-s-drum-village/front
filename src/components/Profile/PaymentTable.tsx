@@ -216,7 +216,7 @@ export function DataTable2<TData>({
   return (
     <div>
       {/* {filter && filter({ table })} */}
-      <div className={cn("rounded-md", { border: bordered })}>
+      <div className={cn("rounded-md ", { border: bordered })}>
         <Table className="border-collapse ">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -226,7 +226,7 @@ export function DataTable2<TData>({
                     <TableHead
                       key={header.id}
                       className={cn(
-                        "text-xs font-bold px-6 bg-[ghostwhite] dark:bg-[#2e313d] text-black dark:text-white whitespace-nowrap",
+                        "text-xs font-bold px-6 bg-[ghostwhite] dark:bg-[#2e313d] text-black dark:text-white whitespace-nowrap ",
                         { border: cellBordered }
                       )}
                       style={{ width: header.getSize() }}
@@ -263,7 +263,7 @@ export function DataTable2<TData>({
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className={cn("text-xs  whitespace-nowrap px-6", {
+                    className={cn("text-xs  whitespace-nowrap px-6 ", {
                       border: cellBordered,
                     })}
                   >

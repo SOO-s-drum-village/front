@@ -79,9 +79,7 @@ export const HeaderContainer = ({ children }: IProps) => {
   const signOut = async () => {
     try {
       await handleSignOut();
-      await queryClient.refetchQueries({
-        queryKey: ["user"],
-      });
+      await queryClient.removeQueries();
       setIsAuth(false);
       setUser(null);
       router.push(`/${lng}/auth/sign-in`);
@@ -90,23 +88,21 @@ export const HeaderContainer = ({ children }: IProps) => {
     }
   };
 
-  useEffect(() => {
-    getMe()
-      .then((res) => {
-        if (res) {
-          setIsAuth(true);
-          setUser(res);
-        }
-      })
-      .catch((err) => console.log("err"));
-  }, []);
+  const fetchMe = async () => {
+    try {
+      const res = await getMe();
+      if (res) {
+        setIsAuth(true);
+        setUser(res);
+      }
+    } catch (error: any) {
+      console.log("error", error.message);
+    }
+  };
 
-  const links = [
-    { href: "/account-settings", label: "Account settings" },
-    { href: "/support", label: "Support" },
-    { href: "/license", label: "License" },
-    { href: "/sign-out", label: "Sign out" },
-  ];
+  useEffect(() => {
+    fetchMe();
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 rounded-none py-4 px-4  lg:px-12 flex justify-between items-center bg-white shadow-md">

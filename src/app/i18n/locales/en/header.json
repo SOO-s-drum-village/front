@@ -4,5 +4,6 @@
   "logout": "Logout",
   "member-ship": "MemberShip",
   "signin": "Login",
-  "signup": "SignUp"
+  "signup": "SignUp",
+  "lecture": "Lecture"
 }

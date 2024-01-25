@@ -1,5 +1,5 @@
 import "tailwindcss/tailwind.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Roboto, Noto_Sans_KR } from "next/font/google";
 import ToasterProvider from "../components/Provider/ToasterProvider";
 import QueryProvider from "../components/Provider/QueryProvider";
@@ -28,6 +28,14 @@ export const metadata: Metadata = {
   description: "Drum Village",
 };
 
+export const viewport: Viewport = {
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  width: "device-width",
+};
+
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
@@ -44,9 +52,9 @@ export default function RootLayout({
       <body
         className={
           (cls(notoSansKr.className, roboto.className),
-          "font-roboto  overflow-y-auto mt-[76px]")
+          "font-roboto  overflow-y-auto mt-[68px]")
         }
-        style={{ height: "calc(100vh - 76px)" }}
+        style={{ height: "calc(100vh - 68px)" }}
         suppressHydrationWarning={true}
       >
         <ToasterProvider>

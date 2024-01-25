@@ -23,7 +23,7 @@ import {
   ColumnFiltersState,
 } from "@tanstack/react-table";
 import Link from "next/link";
-import { DataTable2 } from "./PaymentTable";
+import { DataTable, DataTable2 } from "./PaymentTable";
 import useFilters from "@/hooks/useFilters";
 import { PaymentList } from "@/types/payment";
 
@@ -171,22 +171,6 @@ const PaymentDetail = ({ lng }: Props) => {
       </div>
 
       <DataTable2 table={table} pagination />
-      {/* <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="#"></PaginationPrevious>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">{page}</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#">{page + 1}</PaginationNext>
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination> */}
     </div>
   );
 };

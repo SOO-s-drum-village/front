@@ -8,10 +8,24 @@ interface IProps {
 
 const Header = async ({ lng }: IProps) => {
   const { t } = await useTranslation(lng, "header");
+
+  const headerItems = [
+    {
+      href: "/lecture",
+      name: t("lecture"),
+    },
+  ];
+
   return (
     <HeaderContainer>
       <ul className="hidden md:flex flex-1 mr-12 ">
-        <li>{t("member-ship")}</li>
+        {headerItems.map((item) => (
+          <li key={item.name} className="mr-6">
+            <a className="text-lg font-medium" href={`/${lng}/${item.href}`}>
+              {item.name}
+            </a>
+          </li>
+        ))}
       </ul>
     </HeaderContainer>
   );

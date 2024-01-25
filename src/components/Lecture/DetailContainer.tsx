@@ -1,41 +1,31 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getLecture } from "@/apis/lecture";
 import { useParams, useRouter } from "next/navigation";
 import { Lecture } from "@/types/lecture";
 import { AxiosError } from "axios";
+import GetQueryClient from "@/app/GetQueryClient";
 
 const DetailContainer = () => {
   const params = useParams();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const queryClient = GetQueryClient();
 
   const { data: lecture, error } = useQuery<Lecture, AxiosError>({
     queryKey: ["lecture", params.id],
     queryFn: () => getLecture(Number(params.id)),
+    // staleTime: 1000,
+    // refetchOnMount: true,
   });
 
   if (error) {
     if (error.response?.status === 401) {
       router.push(`/${params.lng}/auth/sign-in`);
-    } else if (error.response?.status === 403) {
-      queryClient.removeQueries({
-        queryKey: ["lecture", params.id],
-      });
-      router.push(`/${params.lng}/membership`);
     } else throw new Error(error.message);
   }
-
-  // useEffect(() => {
-  //   getLecture(Number(params.id)).then((res) => console.log("res", res));
-
-  //   return () => {
-
-  //   };
-  // }, []);
 
   return (
     <section>

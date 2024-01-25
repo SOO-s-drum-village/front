@@ -6,17 +6,26 @@ import { Lecture } from "@/types/lecture";
 
 interface Iprops {
   lecture: Lecture;
+  scroll?: boolean;
 }
 
-export const LectureCard = ({ lecture }: Iprops) => {
+export const LectureCard = ({ lecture, scroll }: Iprops) => {
   const params = useParams();
 
   const lng = params.lng || "ko";
 
   return (
     <Link href={`/${lng}/lecture/${lecture.id}`}>
-      <div className="card flex flex-col  rounded-md">
-        <div className="relative h-[150px] md:h-[327px] ">
+      <div
+        className={`card flex flex-col  rounded-md ${
+          scroll && "w-[150px] md:w-[300px] mr-4 md:mr-8"
+        }`}
+      >
+        <div
+          className={`relative ${
+            scroll ? "h-[120px] md:h-[250px]" : " h-[150px] md:h-[327px]"
+          }`}
+        >
           <Image
             src={
               "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/concert/1684838755185"

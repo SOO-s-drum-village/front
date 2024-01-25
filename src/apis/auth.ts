@@ -51,7 +51,7 @@ export const getMe = async () => {
     const response = await apiRequest.get<User>("/users/me");
     return response;
   } catch (error) {
-    throw new Error(exceptionHandler(error, "API getMe error"));
+    throw error;
   }
 };
 

@@ -49,7 +49,7 @@ export const LectureContainer = () => {
   }, [inView, hasNextPage]);
 
   return (
-    <div className="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 px-2">
+    <div className="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-2">
       {data?.pages?.map((page) =>
         page?.lectures?.map((lecture: Lecture) => (
           <LectureCard lecture={lecture} key={lecture.id} />
