@@ -1,7 +1,6 @@
 {
-  "by-name": "이름순",
-  "by-level": "레벨순",
-  "by-date": "최신순",
+  "highest-level": "높은 레벨순",
+  "lowest-level": "낮은 레벨순",
   "k-pop": "K POP",
   "praise": "찬양",
   "basic": "기본"

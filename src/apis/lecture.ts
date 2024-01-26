@@ -4,15 +4,16 @@ import { exceptionHandler } from "./exception-handler";
 import { ListRequest, apiRequest } from "./index";
 
 interface LecturesRequest extends ListRequest {
-  category?: LectureCategory;
+  category?: LectureCategory | undefined;
+  direction?: SortDirection;
 }
 
 export const getLectures = async (request: LecturesRequest) => {
   const payload = {
     page: request.page,
     size: 20,
-    direaction: "DESC" as SortDirection,
-    category: request.category,
+    direaction: request.direction || undefined,
+    category: request.category || undefined,
   };
 
   try {

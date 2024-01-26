@@ -1,7 +1,6 @@
 {
-  "by-name": "By name",
-  "by-level": "By level",
-  "by-date": "By Latest",
+  "highest-level": "By Hightest level",
+  "lowest-level": "By Lowest level",
   "k-pop": "K POP",
   "praise": "Praise",
   "basic": "Basic"

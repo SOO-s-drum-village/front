@@ -12,7 +12,7 @@ const ChevronDown = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6 md:w-7 md:h-7"
+      className="w-5 h-5 md:w-7 md:h-7"
     >
       <path
         strokeLinecap="round"
@@ -31,7 +31,7 @@ const ChevronUp = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6 md:w-7 md:h-7"
+      className="w-5 h-5 md:w-7 md:h-7"
     >
       <path
         strokeLinecap="round"
@@ -51,15 +51,14 @@ const LectureSearchForm = () => {
   const router = useRouter();
 
   const selectList = [
-    { value: "level", name: t("by-level") },
-    { value: "name", name: t("by-name") },
-    { value: "date", name: t("by-date") },
+    { value: "highest-level", name: t("highest-level") },
+    { value: "lowest-level", name: t("lowest-level") },
   ];
 
   const badgeList = [
+    { value: "BASIC", name: t("basic") },
     { value: "K_POP", name: t("k-pop") },
     { value: "PRAISE", name: t("praise") },
-    { value: "BASIC", name: t("basic") },
   ];
 
   const selectedItem = selectList.filter(
@@ -69,7 +68,9 @@ const LectureSearchForm = () => {
   const [selectedPerson, setSelectedPerson] = useState(
     selectedItem[0] || selectList[0]
   );
-  const [selectedBadge, setSelectedBadge] = useState<string>();
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    category || ""
+  );
 
   const handleSortSelect = (value: { name: string; value: string }) => {
     setSelectedPerson(value);
@@ -79,21 +80,21 @@ const LectureSearchForm = () => {
   };
 
   const handleBadgeSelect = (value: { name: string; value: string }) => {
-    setSelectedBadge(value.value);
+    setSelectedCategory(value.value);
     router.push(`/${params.lng}/lecture?category=${value.value}&sort=${sort}`);
   };
 
   return (
-    <div className="flex items-center my-4">
-      <div className="w-32 relative z-10 ">
+    <div className="flex items-center md:my-4">
+      <div className="w-60 relative z-10 ">
         <Listbox
           value={selectedPerson}
           onChange={(value: any) => handleSortSelect(value)}
         >
           {({ open }) => (
             <>
-              <Listbox.Button className=" cursor-pointer p-2 w-full text-left text-lg md:text-xl font-medium flex justify-between ">
-                {selectedPerson.name}
+              <Listbox.Button className=" cursor-pointer p-2 w-full text-left text-sm md:text-xl font-medium flex justify-between whitespace-nowrap">
+                <span>{t(selectedPerson.value)}</span>
                 {open ? <ChevronUp /> : <ChevronDown />}
               </Listbox.Button>
               <Transition
@@ -104,22 +105,18 @@ const LectureSearchForm = () => {
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
               >
-                <Listbox.Options className="shadow-xl absolute bottom-[-120px] left-0 z-20 bg-white w-full cursor-pointer">
-                  {selectList.map((person) => (
+                <Listbox.Options className="shadow-2xl md:text-lg absolute bottom-[-80px] md:bottom-[-95px] left-0 z-20 bg-white w-full cursor-pointer">
+                  {selectList.map((item) => (
                     /* Use the `active` state to conditionally style the active option. */
                     /* Use the `selected` state to conditionally style the selected option. */
-                    <Listbox.Option
-                      key={person.value}
-                      value={person}
-                      as={Fragment}
-                    >
+                    <Listbox.Option key={item.value} value={item} as={Fragment}>
                       {({ active, selected }) => (
                         <li
                           className={`py-2 px-2  ${
                             (active || selected) && "bg-whitesmoke2 text-black "
                           }`}
                         >
-                          {person.name}
+                          {item.name}
                         </li>
                       )}
                     </Listbox.Option>
@@ -130,18 +127,18 @@ const LectureSearchForm = () => {
           )}
         </Listbox>
       </div>
-      <div className="ml-4 flex whitespace-nowrap">
+      <div className=" md:ml-4 flex whitespace-nowrap">
         {badgeList.map((badge) => (
           <Badge
             key={badge.value}
-            className={`cursor-pointer bg-whitesmoke2 text-primary text-sm md:text-lg  ml-2 py-[6px] px-3 my-1 md:my-0 ${
-              selectedBadge === badge.value
-                ? "border border-royalblue bg-white text-royalblue"
+            className={`cursor-pointer  text-darkslategray font-medium text-xs md:text-lg  ml-2 md:ml-4 py-[6px] px-3 md:px-5 my-1 md:my-0 ${
+              selectedCategory === badge.value
+                ? "border border-black bg-white text-black font-bold"
                 : ""
             } `}
             onClick={() => handleBadgeSelect(badge)}
           >
-            # {badge.name}
+            {badge.name}
           </Badge>
         ))}
       </div>

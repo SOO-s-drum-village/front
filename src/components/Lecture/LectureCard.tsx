@@ -40,8 +40,8 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
         </div>
         <div className="pt-2 pb-1 flex flex-col break-keep">
           <div className="flex-1 my-2  font-semibold lg:text-base flex flex-col">
-            <span className="text-sm md:text-xl">{lecture.title}</span>
-            <span className="text-xs md:text-base text-darkgray">{`Level. ${lecture.level}`}</span>
+            <span className="text-lg md:text-xl">{lecture.title}</span>
+            <span className="text-base md:text-lg text-darkgray">{`Level. ${lecture.level}`}</span>
           </div>
         </div>
       </div>

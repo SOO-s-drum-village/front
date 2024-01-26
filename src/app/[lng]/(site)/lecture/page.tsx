@@ -40,7 +40,7 @@ const page = async ({ params }: Props) => {
   });
 
   return (
-    <div className="max-w-screen-2xl mx-auto p-4 md:p-8">
+    <div className="max-w-screen-2xl mx-auto py-4 px-2 md:p-8">
       <LectureContainer />
     </div>
   );
