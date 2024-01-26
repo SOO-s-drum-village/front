@@ -4,14 +4,13 @@ import React from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "@/components/Auth/SignUp/SignUpForm";
 
 interface Props {
   lng: string;
