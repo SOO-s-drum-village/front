@@ -33,7 +33,7 @@ export const LectureContainer = () => {
         category === "ALL" || !!category
           ? undefined
           : (category as LectureCategory),
-      direction: sort === "lowest-level" ? "ASC" : "DESC",
+      direction: (sort as SortDirection) ?? undefined,
     });
     return {
       lectures: response,

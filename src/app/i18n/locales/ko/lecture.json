@@ -1,6 +1,6 @@
 {
-  "highest-level": "높은 레벨순",
-  "lowest-level": "낮은 레벨순",
+  "DESC": "높은 레벨순",
+  "ASC": "낮은 레벨순",
   "k-pop": "K POP",
   "praise": "찬양",
   "basic": "기본",

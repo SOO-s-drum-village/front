@@ -51,8 +51,8 @@ const LectureSearchForm = () => {
   const router = useRouter();
 
   const selectList = [
-    { value: "highest-level", name: t("highest-level") },
-    { value: "lowest-level", name: t("lowest-level") },
+    { value: "DESC", name: t("DESC") },
+    { value: "ASC", name: t("ASC") },
   ];
 
   const badgeList = [
@@ -132,7 +132,7 @@ const LectureSearchForm = () => {
         {badgeList.map((badge) => (
           <Badge
             key={badge.value}
-            className={`cursor-pointer  text-darkslategray font-medium text-xs md:text-lg  ml-2 md:ml-4 py-[6px] px-3 md:px-5 my-1 md:my-0 ${
+            className={`cursor-pointer  text-darkslategray font-medium text-xs md:text-lg  ml-1 md:ml-4 py-[6px] px-3 md:px-5 my-1 md:my-0 ${
               selectedCategory === badge.value
                 ? "border border-black bg-white text-black font-bold"
                 : ""
