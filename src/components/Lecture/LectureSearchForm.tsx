@@ -12,7 +12,7 @@ const ChevronDown = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-5 h-5 md:w-7 md:h-7"
+      className="w-5 h-5 md:w-6 md:h-6"
     >
       <path
         strokeLinecap="round"
@@ -31,7 +31,7 @@ const ChevronUp = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-5 h-5 md:w-7 md:h-7"
+      className="w-5 h-5 md:w-6 md:h-6"
     >
       <path
         strokeLinecap="round"
@@ -93,7 +93,7 @@ const LectureSearchForm = () => {
         >
           {({ open }) => (
             <>
-              <Listbox.Button className=" cursor-pointer p-2 w-full text-left text-sm md:text-xl font-medium flex justify-between whitespace-nowrap">
+              <Listbox.Button className=" cursor-pointer p-2 w-full text-left text-sm md:text-lg font-medium flex justify-between whitespace-nowrap">
                 <span>{t(selectedPerson.value)}</span>
                 {open ? <ChevronUp /> : <ChevronDown />}
               </Listbox.Button>
@@ -105,7 +105,7 @@ const LectureSearchForm = () => {
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
               >
-                <Listbox.Options className="shadow-2xl md:text-lg absolute bottom-[-80px] md:bottom-[-95px] left-0 z-20 bg-white w-full cursor-pointer">
+                <Listbox.Options className="shadow-2xl  absolute bottom-[-80px] md:bottom-[-95px] left-0 z-20 bg-white w-full cursor-pointer">
                   {selectList.map((item) => (
                     /* Use the `active` state to conditionally style the active option. */
                     /* Use the `selected` state to conditionally style the selected option. */

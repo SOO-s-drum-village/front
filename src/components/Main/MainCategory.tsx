@@ -10,7 +10,7 @@ const BoltIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
-      className="w-8 h-8 md:w-16 md:h-16"
+      className="w-8 h-8 md:w-[56px] md:h-[56px]"
     >
       <path
         strokeLinecap="round"
@@ -29,7 +29,7 @@ const Chip = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-8 h-8 md:w-16 md:h-16"
+      className="w-8 h-8 md:w-[56px] md:h-[56px]"
     >
       <path
         strokeLinecap="round"
@@ -48,7 +48,7 @@ const MusicIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-8 h-8 md:w-16 md:h-16"
+      className="w-8 h-8 md:w-[56px] md:h-[56px]"
     >
       <path
         strokeLinecap="round"
@@ -67,7 +67,7 @@ const BellIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-8 h-8 md:w-16 md:h-16"
+      className="w-8 h-8 md:w-[56px] md:h-[56px]"
     >
       <path
         strokeLinecap="round"

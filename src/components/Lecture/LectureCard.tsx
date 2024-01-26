@@ -17,13 +17,13 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
   return (
     <Link href={`/${lng}/lecture/${lecture.id}`}>
       <div
-        className={`card flex flex-col  rounded-md ${
-          scroll && "w-[150px] md:w-[300px] mr-4 md:mr-8"
+        className={`card flex flex-col rounded-md ${
+          scroll && "w-[150px] md:w-[250px] mr-4 md:mr-8"
         }`}
       >
         <div
           className={`relative ${
-            scroll ? "h-[120px] md:h-[250px]" : " h-[150px] md:h-[327px]"
+            scroll ? "h-[120px] md:h-[220px]" : " h-[150px] md:h-[220px]"
           }`}
         >
           <Image
@@ -40,8 +40,8 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
         </div>
         <div className="pt-2 pb-1 flex flex-col break-keep">
           <div className="flex-1 my-2  font-semibold lg:text-base flex flex-col">
-            <span className="text-lg md:text-xl">{lecture.title}</span>
-            <span className="text-base md:text-lg text-darkgray">{`Level. ${lecture.level}`}</span>
+            <span className="text-base md:text-lg">{lecture.title}</span>
+            <span className="text-sm md:text-base text-darkgray">{`Level. ${lecture.level}`}</span>
           </div>
         </div>
       </div>
