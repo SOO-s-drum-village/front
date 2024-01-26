@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import SignUpForm from "@/components/Auth/SignUp/SignUpForm";
+import SignUpForm from "./SignUpform";
 
 interface Props {
   lng: string;
