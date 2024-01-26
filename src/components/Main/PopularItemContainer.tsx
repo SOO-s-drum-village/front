@@ -18,7 +18,7 @@ const PopularItemContainer = () => {
   });
 
   return (
-    <section className="max-w-screen-2xl mx-auto px-2 md:px-8">
+    <section className="max-w-screen-2xl mx-auto px-2 md:px-8 ">
       <div className="my-6">
         <h2 className="text-xl md:text-3xl font-bold">주목해야 할 상품</h2>
       </div>
@@ -26,14 +26,14 @@ const PopularItemContainer = () => {
         className="whitespace-nowrap rounded-md"
         scrollHideDelay={100}
       >
-        <div className="flex overflow-x-scroll">
+        <div className="flex overflow-x-scroll py-2">
           {popularItems?.map((item) => (
             <LectureCard lecture={item} key={item.id} scroll />
           ))}
         </div>
         <ScrollBar
           orientation="horizontal"
-          className="bg-disabled"
+          className="bg-disabled hidden md:flex"
           forceMount
         />
       </ScrollArea>

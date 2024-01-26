@@ -17,7 +17,7 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
   return (
     <Link href={`/${lng}/lecture/${lecture.id}`}>
       <div
-        className={`card flex flex-col  shadow-xl rounded-xl ${
+        className={`card flex flex-col  shadow-lg rounded-xl ${
           scroll ? "w-[150px] md:w-[250px] mr-4 md:mr-8" : " "
         }`}
       >
