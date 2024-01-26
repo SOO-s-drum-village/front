@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import React from "react";
 
 const BoltIcon = () => {
@@ -79,43 +81,51 @@ const BellIcon = () => {
 };
 
 const categoryList = [
-  { id: 1, icon: <BoltIcon />, title: "Join" },
+  { id: 1, icon: <BoltIcon />, title: "Join", href: "/" },
   {
     id: 2,
     icon: <Chip />,
     title: "About",
+    href: "/",
   },
   {
     id: 3,
     icon: <MusicIcon />,
     title: "Song",
+    href: "/lecture",
   },
   {
     id: 4,
     icon: <BellIcon />,
     title: "Shop",
+    href: "/",
   },
   {
     id: 5,
     icon: <BellIcon />,
     title: "Free",
+    href: "/",
   },
 ];
 
 export const MainCategory = () => {
+  const params = useParams();
+
   return (
     <div className="max-w-screen-lg mx-auto my-8">
       <div className="my-4 md:my-20 grid grid-cols-5 gap-4 place-items-center ">
         {categoryList.map((category) => (
-          <div
+          <Link
+            href={`/${params.lng || "ko"}${category.href}`}
             key={category.id}
-            className="flex flex-col items-center cursor-pointer"
           >
-            {category.icon}
-            <span className="mt-2 md:mt-4 text-base md:text-xl font-medium">
-              {category.title}
-            </span>
-          </div>
+            <div className="flex flex-col items-center cursor-pointer">
+              {category.icon}
+              <span className="mt-2 md:mt-4 text-base md:text-xl font-medium">
+                {category.title}
+              </span>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

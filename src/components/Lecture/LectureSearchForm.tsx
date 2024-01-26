@@ -56,6 +56,7 @@ const LectureSearchForm = () => {
   ];
 
   const badgeList = [
+    { value: "ALL", name: t("all") },
     { value: "BASIC", name: t("basic") },
     { value: "K_POP", name: t("k-pop") },
     { value: "PRAISE", name: t("praise") },

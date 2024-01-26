@@ -29,7 +29,10 @@ export const LectureContainer = () => {
   const getLectureList = async (pageParam: number): Promise<LectureList> => {
     const response = await getLectures({
       page: pageParam,
-      category: (category as LectureCategory) ?? undefined,
+      category:
+        category === "ALL" || !!category
+          ? undefined
+          : (category as LectureCategory),
       direction: sort === "lowest-level" ? "ASC" : "DESC",
     });
     return {
@@ -57,7 +60,7 @@ export const LectureContainer = () => {
   return (
     <section>
       <LectureSearchForm />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {data?.pages?.map((page) =>
           page?.lectures?.map((lecture: Lecture) => (
             <LectureCard lecture={lecture} key={lecture.id} />

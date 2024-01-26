@@ -17,13 +17,13 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
   return (
     <Link href={`/${lng}/lecture/${lecture.id}`}>
       <div
-        className={`card flex flex-col rounded-md ${
-          scroll && "w-[150px] md:w-[250px] mr-4 md:mr-8"
+        className={`card flex flex-col  shadow-xl rounded-xl ${
+          scroll ? "w-[150px] md:w-[250px] mr-4 md:mr-8" : " "
         }`}
       >
         <div
           className={`relative ${
-            scroll ? "h-[120px] md:h-[220px]" : " h-[150px] md:h-[220px]"
+            scroll ? "h-[120px] md:h-[220px]" : " h-[120px] md:h-[210px]"
           }`}
         >
           <Image
@@ -35,13 +35,23 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
             fill
             priority
             quality={100}
-            className="rounded-xl"
+            className="rounded-t-xl"
           />
         </div>
-        <div className="pt-2 pb-1 flex flex-col break-keep">
-          <div className="flex-1 my-2  font-semibold lg:text-base flex flex-col">
+        <div className="py-4 px-3 flex flex-col break-keep ">
+          <div className="flex-1  font-semibold lg:text-base flex flex-col ">
             <span className="text-base md:text-lg">{lecture.title}</span>
             <span className="text-sm md:text-base text-darkgray">{`Level. ${lecture.level}`}</span>
+
+            {lecture.categories.map((category, index) => (
+              <span
+                key={category}
+                className="text-sm md:text-base text-darkgray"
+              >
+                {index === 0 ? "" : " · "}
+                {category}
+              </span>
+            ))}
           </div>
         </div>
       </div>

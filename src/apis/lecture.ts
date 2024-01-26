@@ -12,7 +12,7 @@ export const getLectures = async (request: LecturesRequest) => {
   const payload = {
     page: request.page,
     size: 20,
-    direaction: request.direction || undefined,
+    direction: request.direction || undefined,
     category: request.category || undefined,
   };
 
