@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/app/i18n/client";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +12,7 @@ import { useLoading } from "@toss/use-loading";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
 import { useQueryClient } from "@tanstack/react-query";
+import { useHookFormMask } from "use-mask-input";
 
 type Props = {
   lng: string;
@@ -34,11 +35,18 @@ const schema = yup
     email: yup.string().email("유효한 이메일 형식이 아닙니다.").required(),
     cardNumber: yup.string().required("카드번호 16자를 입력해주세요."),
     cardExpiry: yup.string().required("카드 유효기간 4자리를 입력해주세요."),
-    birth: yup.string().required("생년월일 6자리를 입력해주세요."),
+    birth: yup
+      .string()
+      .length(6, "생년월일 6자리를 입력해주세요.")
+      .required("생년월일 6자리를 입력해주세요."),
     cardPwd2digit: yup
       .string()
+      .length(2, "카드 비밀번호 앞 2자리를 입력해주세요.")
       .required("카드 비밀번호 앞 2자리를 입력해주세요."),
-    cardCvc: yup.string().required("카드 CVC번호 3자리를 입력해주세요."),
+    cardCvc: yup
+      .string()
+      .length(3, "카드 cvc번호는 3글자이어야 합니다.")
+      .required("카드 CVC번호 3자리를 입력해주세요."),
   })
   .required();
 type FormData = yup.InferType<typeof schema>;
@@ -54,10 +62,14 @@ const SignUpForm = ({ lng }: Props) => {
     handleSubmit,
     watch,
     reset,
+    control,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const registerWithMask = useHookFormMask(register);
+
   const { t } = useTranslation(lng, "auth");
 
   const signUpSubmit = async (payload: FormData) => {
@@ -80,6 +92,18 @@ const SignUpForm = ({ lng }: Props) => {
       console.log("error", error);
       errorToast(error.message);
     }
+  };
+
+  // const { onChange, name, ref } = register("cardNumber");
+
+  const normalizeCardNumbr = (value: string) => {
+    // if(value.length > 4) {
+    //   return value.push('-')
+    // }
+    // return value
+    //   .replace(/\s/g, "")
+    //   .match(/.{1,4}/g)
+    //   ?.join("-");
   };
 
   return (
@@ -152,11 +176,13 @@ const SignUpForm = ({ lng }: Props) => {
         <Label htmlFor="카드번호">{t("card-number")}</Label>
         <Input
           type="text"
-          placeholder="0000000000000000"
-          maxLength={16}
-          {...register("cardNumber")}
+          placeholder="0000-0000-0000-0000"
+          {...registerWithMask("cardNumber", ["9999-9999-9999-9999"], {
+            required: true,
+          })}
           className="border-b-2 border-t-0 border-r-0  border-l-0 border-silver bg-white py-6 text-lg focus:border-gray"
         />
+
         <ErrorMessage
           errors={errors}
           name="cardNumber"
@@ -169,9 +195,10 @@ const SignUpForm = ({ lng }: Props) => {
         <Label htmlFor="카드 유효기간">{t("card-expiration")}</Label>
         <Input
           type="text"
-          placeholder="MMYY"
-          maxLength={4}
-          {...register("cardExpiry")}
+          placeholder="MM/YY"
+          {...registerWithMask("cardExpiry", ["99/99"], {
+            required: true,
+          })}
           className="border-b-2 border-t-0 border-r-0  border-l-0 border-silver bg-white py-6 text-lg focus:border-gray"
         />
         <ErrorMessage

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { Lecture } from "@/types/lecture";
+import { Lecture, LectureValues } from "@/types/lecture";
 
 interface Iprops {
   lecture: Lecture;
@@ -42,16 +42,17 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
           <div className="flex-1  font-semibold lg:text-base flex flex-col ">
             <span className="text-base md:text-lg">{lecture.title}</span>
             <span className="text-sm md:text-base text-darkgray">{`Level. ${lecture.level}`}</span>
-
-            {lecture.categories.map((category, index) => (
-              <span
-                key={category}
-                className="text-sm md:text-base text-darkgray"
-              >
-                {index === 0 ? "" : " · "}
-                {category}
-              </span>
-            ))}
+            <div>
+              {lecture.categories.map((category, index) => (
+                <span
+                  key={category}
+                  className="text-sm md:text-base text-darkgray"
+                >
+                  {index === 0 ? "" : " · "}
+                  {LectureValues[category]}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>

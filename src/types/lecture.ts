@@ -7,3 +7,9 @@ export type Lecture = {
   categories: LectureCategory[];
   imageUrl: string;
 };
+
+export const LectureValues = {
+  BASIC: "BASIC",
+  K_POP: "K·POP",
+  PRAISE: "PRAISE",
+};
