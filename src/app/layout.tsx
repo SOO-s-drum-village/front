@@ -28,14 +28,14 @@ export const metadata: Metadata = {
   description: "Drum Village",
   openGraph: {
     title: "Drum Village",
-    description: "음악Drum Village",
+    description: "Drum Village",
     url: "https://front-drumvillage.vercel.app",
     siteName: "Drum Village",
     locale: "ko-KR",
     type: "website",
     images: [
       {
-        url: "/drumvillage-logo.png",
+        url: "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1706502399822.png",
         width: 580,
         height: 580,
         alt: "Drum Village",
