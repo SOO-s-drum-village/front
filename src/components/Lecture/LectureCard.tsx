@@ -31,7 +31,6 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
               "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/concert/1684838755185"
             }
             alt="lecture_image"
-            sizes="250px, 250px"
             fill
             priority
             quality={100}

@@ -11,7 +11,7 @@ const posters = [
     id: 1,
     image_url:
       // "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1703125972384.png",
-      "/drum_village_banner.png",
+      "/drumvillage-banner.png",
   },
 ];
 
@@ -23,7 +23,7 @@ export const BannerContainer = () => {
         {posters.map((item, idx) => (
           // <SwiperSlide key={item.id} style={{ width: "270px" }}>
           <SwiperSlide key={item.id}>
-            <div className="cursor-pointer relative h-[180px] md:h-[500px]">
+            <div className="cursor-pointer relative h-[180px] md:h-[600px]">
               <Image
                 src={item.image_url!}
                 alt="banner_image"

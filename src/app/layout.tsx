@@ -26,6 +26,22 @@ export const cls = (...classnames: string[]) => {
 export const metadata: Metadata = {
   title: "Drum Village",
   description: "Drum Village",
+  openGraph: {
+    title: "Drum Village",
+    description: "음악Drum Village",
+    url: "https://front-drumvillage.vercel.app",
+    siteName: "Drum Village",
+    locale: "ko-KR",
+    type: "website",
+    images: [
+      {
+        url: "/drumvillage-logo.png",
+        width: 580,
+        height: 580,
+        alt: "Drum Village",
+      },
+    ],
+  },
 };
 
 export const viewport: Viewport = {

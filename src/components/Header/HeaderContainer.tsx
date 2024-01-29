@@ -10,6 +10,8 @@ import { getMe, handleSignOut } from "@/apis/auth";
 import useToast from "@/hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import useUserStore from "@/store/user";
+import Image from "next/image";
+import Search from "../\bIcon/Search";
 
 const SearchIcon = () => {
   return (
@@ -17,7 +19,7 @@ const SearchIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth="1.5"
+      strokeWidth="2"
       stroke="currentColor"
       className="w-6 h-6  cursor-pointer"
     >
@@ -25,25 +27,6 @@ const SearchIcon = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
         d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-      />
-    </svg>
-  );
-};
-
-const UserIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      className="w-6 h-6 cursor-pointer"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
       />
     </svg>
   );
@@ -108,38 +91,30 @@ export const HeaderContainer = ({ children }: IProps) => {
     <nav className="fixed top-0 left-0 w-full z-50 rounded-none py-4 px-4  lg:px-12 flex justify-between items-center bg-white shadow-md">
       <div>
         <button onClick={goToHome}>
-          <span className="text-lg md:text-2xl font-bold">Drum village</span>
+          <Image
+            src="/drumvillage-logo.png"
+            alt="drumvillage_logo"
+            width={150}
+            height={50}
+          />
         </button>
       </div>
 
       <div className="flex items-center">
         <div className="flex items-center">
           {children}
-          <SearchIcon />
+          <Search className="w-6 h-6 cursor-pointer" border="2" />
           {isAuth ? (
-            // <DropdownMenu modal={false}>
-            //   <DropdownMenuTrigger className="mx-1 md:mx-3 ">
-            //     <UserIcon />
-            //   </DropdownMenuTrigger>
-            //   <DropdownMenuContent className="bg-white">
-            //     <DropdownMenuLabel>{t("my-account")}</DropdownMenuLabel>
-            //     <DropdownMenuSeparator />
-            //     <DropdownMenuItem
-            //       className="cursor-pointer"
-            //       onClick={() => router.push(`/${lng}/my-profile`)}
-            //     >
-            //       {t("my-profile")}
-            //     </DropdownMenuItem>
-            //     <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
-            //       {t("logout")}
-            //     </DropdownMenuItem>
-            //   </DropdownMenuContent>
-            // </DropdownMenu>
-
             <Menu as="div" className="text-left">
               <div>
-                <Menu.Button className="inline-flex w-full h-full  hover:bg-whitesmoke2 justify-center rounded-md  px-4 py-2 text-sm font-medium   focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 ">
-                  <UserIcon />
+                <Menu.Button className="inline-flex w-full h-full  hover:bg-whitesmoke2 justify-center rounded-md  p-2 text-sm font-medium   focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 ">
+                  <Image
+                    src="/icon/user.png"
+                    alt="profile_image"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
+                  />
                 </Menu.Button>
               </div>
               <Transition
@@ -194,29 +169,6 @@ export const HeaderContainer = ({ children }: IProps) => {
             </button>
           )}
         </div>
-
-        {/* <Menubar className="mx-2">
-          <MenubarMenu>
-            <MenubarTrigger className="w-[100px]">
-              {!lng ? "한국어" : lng === "ko" ? "한국어" : "English"}
-            </MenubarTrigger>
-            <MenubarContent className="bg-white w-[100px]">
-              <MenubarItem
-                className="cursor-pointer"
-                onSelect={() => handleLanguage("ko")}
-              >
-                한국어
-              </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem
-                className="cursor-pointer"
-                onSelect={() => handleLanguage("en")}
-              >
-                English
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar> */}
 
         <Menu as="div" className="text-left">
           <div>
