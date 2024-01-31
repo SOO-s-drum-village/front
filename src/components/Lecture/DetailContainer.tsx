@@ -28,7 +28,7 @@ const DetailContainer = () => {
       <div className="flex flex-col md:flex-row">
         <div className="relative w-[330px] mx-auto h-[400px]">
           <Image
-            src={lecture?.imageUrl || "/membership.jpeg"}
+            src={lecture?.imageUrl || "/membership-pass.png"}
             alt="lecture_img"
             fill
             priority

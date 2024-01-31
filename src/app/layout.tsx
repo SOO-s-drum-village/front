@@ -24,14 +24,12 @@ export const cls = (...classnames: string[]) => {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://front-drumvillage.vercel.app"),
   title: "Drum Village",
   description: "Drum Village",
   openGraph: {
     title: "Drum Village",
     description: "Drum Village",
-    url: "https://front-drumvillage.vercel.app",
-    siteName: "Drum Village",
-    locale: "ko-KR",
     type: "website",
     images: [
       {
@@ -41,6 +39,22 @@ export const metadata: Metadata = {
         alt: "Drum Village",
       },
     ],
+  },
+  twitter: {
+    title: "Drum Village",
+    description: "Drum Village",
+    images: [
+      {
+        url: "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1706502399822.png",
+        width: 580,
+        height: 580,
+        alt: "Drum Village",
+      },
+    ],
+  },
+  icons: {
+    icon: { url: "/favicon.ico", type: "image/png", sizes: "32x32" },
+    shortcut: { url: "/favicon.ico", type: "image/png", sizes: "32x32" },
   },
 };
 

@@ -5,36 +5,41 @@ import { useParams } from "next/navigation";
 import React from "react";
 import Image from "next/image";
 
-const categoryList = [
-  { id: 1, icon: "/icon/user.png", title: "Join", href: "/" },
-  {
-    id: 2,
-    icon: "/icon/about.png",
-    title: "About",
-    href: "/",
-  },
-  {
-    id: 3,
-    icon: "/icon/song.png",
-    title: "Song",
-    href: "/lecture",
-  },
-  {
-    id: 4,
-    icon: "/icon/shop.png",
-    title: "Shop",
-    href: "/",
-  },
-  {
-    id: 5,
-    icon: "/icon/free.png",
-    title: "Free",
-    href: "/",
-  },
-];
-
 export const MainCategory = () => {
   const params = useParams();
+
+  const categoryList = [
+    {
+      id: 1,
+      icon: "/icon/user.png",
+      title: "Join",
+      href: `/auth/sign-in`,
+    },
+    {
+      id: 2,
+      icon: "/icon/about.png",
+      title: "About",
+      href: "/",
+    },
+    {
+      id: 3,
+      icon: "/icon/song.png",
+      title: "Song",
+      href: "/lecture",
+    },
+    {
+      id: 4,
+      icon: "/icon/shop.png",
+      title: "Shop",
+      href: "/",
+    },
+    {
+      id: 5,
+      icon: "/icon/free.png",
+      title: "Free",
+      href: "/",
+    },
+  ];
 
   return (
     <div className="max-w-screen-lg mx-auto my-8">

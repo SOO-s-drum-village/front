@@ -70,7 +70,7 @@ const LectureSearchForm = () => {
     selectedItem[0] || selectList[0]
   );
   const [selectedCategory, setSelectedCategory] = useState<string>(
-    category || ""
+    category || "ALL"
   );
 
   const handleSortSelect = (value: { name: string; value: string }) => {
