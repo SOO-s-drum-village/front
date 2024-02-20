@@ -32,7 +32,7 @@ module.exports = {
           "gradient-conic":
             "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         },
-        whitesmoke: "#f2f3f7",
+        whitesmoke: "#f5f5f5",
         whitesmoke2: "#f2f3f7",
         firebrick: "#a50c34",
         disabled: "#eeeeee",
@@ -42,7 +42,7 @@ module.exports = {
         royalblue: "#3366ff",
         darkgray: "#a4a5a7",
         dimgray: "#656667",
-        primary: "#34363D",
+        darkgunmetal: "#34363D",
         darkgrey: "#3c3a3a",
         aliceblue: "#f1f4ff",
         green: "#449F3C",

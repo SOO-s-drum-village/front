@@ -18,7 +18,7 @@ const Header = async ({ lng }: IProps) => {
 
   return (
     <HeaderContainer>
-      <ul className="hidden md:flex flex-1 mr-12 ">
+      <ul className="flex flex-1 md:mr-12 ">
         {headerItems.map((item) => (
           <li key={item.name} className="mr-6">
             <a className="font-medium" href={`/${lng}/${item.href}`}>

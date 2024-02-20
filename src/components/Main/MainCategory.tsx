@@ -19,7 +19,7 @@ export const MainCategory = () => {
       id: 2,
       icon: "/icon/about.png",
       title: "About",
-      href: "/",
+      href: "/about",
     },
     {
       id: 3,
@@ -51,7 +51,12 @@ export const MainCategory = () => {
           >
             <div className="flex flex-col items-center cursor-pointer">
               <div className="relative h-[30px] md:h-[60px] w-[30px] md:w-[60px]">
-                <Image src={category.icon} alt={category.title} fill />
+                <Image
+                  src={category.icon}
+                  alt={category.title}
+                  fill
+                  sizes="(max-width: 768px) 180px, 180px"
+                />
               </div>
               <span className="mt-2 md:mt-4 text-base md:text-xl font-medium">
                 {category.title}

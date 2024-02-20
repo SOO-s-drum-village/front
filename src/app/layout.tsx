@@ -5,7 +5,6 @@ import ToasterProvider from "../components/Provider/ToasterProvider";
 import QueryProvider from "../components/Provider/QueryProvider";
 import { languages } from "./i18n/settings";
 import Header from "@/components/layouts/Header";
-import { Footer } from "@/components/layouts/Footer";
 
 const notoSansKr = Noto_Sans_KR({
   // preload: true, 기본값
@@ -81,10 +80,9 @@ export default function RootLayout({
     <html lang={lng ?? "ko"}>
       <body
         className={
-          (cls(notoSansKr.className, roboto.className),
-          "font-roboto  overflow-y-auto mt-[68px]")
+          (cls(notoSansKr.className, roboto.className), "mt-[76px] font-roboto")
         }
-        style={{ height: "calc(100vh - 68px)" }}
+        style={{ height: "calc(100vh - 76px)" }}
         suppressHydrationWarning={true}
       >
         <ToasterProvider>

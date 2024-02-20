@@ -17,11 +17,11 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
   return (
     <Link href={`/${lng}/lecture/${lecture.id}`}>
       <div
-        className={`card flex flex-col mb-4  shadow-lg rounded-xl ${
-          scroll ? "w-[150px] md:w-[250px] mr-4 md:mr-8" : " "
+        className={`card flex flex-col mb-4 text-darkgunmetal shadow-lg rounded-xl ${
+          scroll ? "w-[180px] md:w-[300px] mr-4 md:mr-8" : " "
         }`}
       >
-        <div
+        {/* <div
           className={`relative ${
             scroll ? "h-[120px] md:h-[180px]" : " h-[120px] md:h-[210px]"
           }`}
@@ -34,6 +34,21 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
             quality={100}
             className="rounded-t-xl"
           />
+        </div> */}
+        <div className="p-3 h-[150px] md:h-[210px] flex flex-col">
+          <Image
+            src="/drumvillage-logo.png"
+            alt="drumvillage_logo"
+            width={50}
+            height={50}
+          />
+          <div className="flex-1 text-center text-lg md:text-xl font-bold flex items-center justify-center">
+            <h2>비와 당신의 이야기</h2>
+          </div>
+
+          <h4 className="text-xs md:text-sm border-b-[1px]  pb-[2px] px-4 ml-auto">
+            차이코프스키
+          </h4>
         </div>
         <div
           className={` px-3 flex flex-col break-keep ${
