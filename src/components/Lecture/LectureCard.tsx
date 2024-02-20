@@ -17,19 +17,17 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
   return (
     <Link href={`/${lng}/lecture/${lecture.id}`}>
       <div
-        className={`card flex flex-col  shadow-lg rounded-xl ${
+        className={`card flex flex-col mb-4  shadow-lg rounded-xl ${
           scroll ? "w-[150px] md:w-[250px] mr-4 md:mr-8" : " "
         }`}
       >
         <div
           className={`relative ${
-            scroll ? "h-[120px] md:h-[220px]" : " h-[120px] md:h-[210px]"
+            scroll ? "h-[120px] md:h-[180px]" : " h-[120px] md:h-[210px]"
           }`}
         >
           <Image
-            src={
-              "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/concert/1684838755185"
-            }
+            src={lecture.imageUrl}
             alt="lecture_image"
             fill
             priority
@@ -37,7 +35,11 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
             className="rounded-t-xl"
           />
         </div>
-        <div className="py-4 px-3 flex flex-col break-keep ">
+        <div
+          className={` px-3 flex flex-col break-keep ${
+            scroll ? "py-2" : "py-4"
+          }`}
+        >
           <div className="flex-1  font-semibold lg:text-base flex flex-col ">
             <span className="text-base md:text-lg">{lecture.title}</span>
             <span className="text-sm md:text-base text-darkgray">{`Level. ${lecture.level}`}</span>

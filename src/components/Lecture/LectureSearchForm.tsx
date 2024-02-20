@@ -82,7 +82,11 @@ const LectureSearchForm = () => {
 
   const handleBadgeSelect = (value: { name: string; value: string }) => {
     setSelectedCategory(value.value);
-    router.push(`/${params.lng}/lecture?category=${value.value}&sort=${sort}`);
+    router.push(
+      `/${params.lng}/lecture?category=${value.value}${
+        sort ? `&sort=${sort}` : ""
+      }`
+    );
   };
 
   return (

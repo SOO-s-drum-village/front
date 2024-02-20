@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1706502399822.png",
-        width: 580,
-        height: 580,
+        width: 1200,
+        height: 630,
         alt: "Drum Village",
       },
     ],
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/lessons/56bcf767-1591-4b9f-a964-c8bb7e487775/1706502399822.png",
-        width: 580,
-        height: 580,
+        width: 1200,
+        height: 630,
         alt: "Drum Village",
       },
     ],

@@ -13,19 +13,16 @@ const nextConfig = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "jauusvckyqnvrzccxpru.supabase.co",
+        port: "",
+        pathname: "**",
+      },
     ],
     formats: ["image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/kr',
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
 };
 
 module.exports = nextConfig;

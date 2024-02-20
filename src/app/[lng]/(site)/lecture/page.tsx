@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import React from "react";
 
 interface Props {
-  params: { id: string };
+  searchParams: { category?: string; sort?: string };
 }
 
 export const metadata: Metadata = {
@@ -19,6 +19,11 @@ export const metadata: Metadata = {
 const getLectureList = async (pageParam: number): Promise<LectureList> => {
   const response = await getLectures({
     page: pageParam,
+    // category:
+    //   category === "ALL" || !!category
+    //     ? undefined
+    //     : (category as LectureCategory),
+    // direction: sort as SortDirection,
   });
   return {
     lectures: response,
@@ -27,10 +32,10 @@ const getLectureList = async (pageParam: number): Promise<LectureList> => {
   };
 };
 
-const page = async ({ params }: Props) => {
+const page = async ({ searchParams: { category, sort } }: Props) => {
   const queryClient = GetQueryClient();
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["lectures"],
+    queryKey: ["lectures", category, sort],
     queryFn: ({ pageParam }) => getLectureList(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {

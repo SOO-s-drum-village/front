@@ -5,7 +5,7 @@ import { ListRequest, apiRequest } from "./index";
 
 interface LecturesRequest extends ListRequest {
   category?: LectureCategory | undefined;
-  direction?: SortDirection;
+  direction?: SortDirection | undefined;
 }
 
 export const getLectures = async (request: LecturesRequest) => {

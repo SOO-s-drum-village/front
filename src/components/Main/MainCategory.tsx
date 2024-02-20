@@ -43,7 +43,7 @@ export const MainCategory = () => {
 
   return (
     <div className="max-w-screen-lg mx-auto my-8">
-      <div className="my-4 md:my-20 max-w-screen-sm mx-auto grid grid-cols-4 place-items-center ">
+      <div className="my-4 md:my-20 max-w-screen-md mx-auto grid grid-cols-4 place-items-center ">
         {categoryList.map((category) => (
           <Link
             href={`/${params.lng || "ko"}${category.href}`}
