@@ -27,12 +27,12 @@ export const MainCategory = () => {
       title: "Song",
       href: "/lecture",
     },
-    {
-      id: 4,
-      icon: "/icon/shop.png",
-      title: "Shop",
-      href: "/",
-    },
+    // {
+    //   id: 4,
+    //   icon: "/icon/shop.png",
+    //   title: "Shop",
+    //   href: "/",
+    // },
     {
       id: 5,
       icon: "/icon/free.png",
@@ -43,7 +43,7 @@ export const MainCategory = () => {
 
   return (
     <div className="max-w-screen-lg mx-auto my-8">
-      <div className="my-4 md:my-20 grid grid-cols-5 gap-4 place-items-center ">
+      <div className="my-4 md:my-20 max-w-screen-sm mx-auto grid grid-cols-4 place-items-center ">
         {categoryList.map((category) => (
           <Link
             href={`/${params.lng || "ko"}${category.href}`}
