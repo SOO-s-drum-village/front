@@ -32,9 +32,11 @@ export const LectureCard = ({ lecture, scroll }: Iprops) => {
             <h2>{lecture.title}</h2>
           </div>
 
-          <h4 className="text-xs md:text-sm border-b-[1px]  pb-[2px] px-4 ml-auto">
-            {lecture.owner}
-          </h4>
+          {lecture.owner && (
+            <h4 className="text-xs md:text-sm border-b-[1px]  pb-[2px] px-4 ml-auto">
+              {lecture.owner}
+            </h4>
+          )}
         </div>
         <div
           className={` px-3 flex flex-col break-keep ${

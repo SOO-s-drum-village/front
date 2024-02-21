@@ -9,18 +9,64 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useTranslation } from "@/app/i18n/client";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import FindEmailForm from "./FindEmailForm";
+import { yupResolver } from "@hookform/resolvers/yup";
+import useToast from "@/hooks/useToast";
+import { handleFindPassword } from "@/apis/auth";
+import { useLoading } from "@toss/use-loading";
+import * as yup from "yup";
 import FindPasswordForm from "./FindPasswordForm";
 
 interface Props {
   lng: "ko" | "en";
 }
 
+const schema = yup
+  .object({
+    cardNumber: yup.string().required("카드번호 16자를 입력해주세요."),
+    email: yup.string().email("유효한 이메일 형식이 아닙니다.").required(),
+    cardPwd2digit: yup
+      .string()
+      .length(2, "카드 비밀번호 앞 2자리를 입력해주세요.")
+      .required("카드 비밀번호 앞 2자리를 입력해주세요."),
+  })
+  .required();
+export type FindPWFormData = yup.InferType<typeof schema>;
+
 const FindEmailContainer = ({ lng }: Props) => {
-  const { t } = useTranslation(lng, "auth");
   const router = useRouter();
   const [resetedPassword, setResetedPassword] = useState("");
+  const { errorToast, successToast } = useToast();
+  const [isLoading, startTransition] = useLoading();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const { t } = useTranslation(lng, "auth");
+
+  const findEmailSubmit = async (payload: FindPWFormData) => {
+    try {
+      const response = await startTransition(
+        handleFindPassword({
+          email: payload.email,
+          cardNumber: payload.cardNumber.replace(/-/g, ""),
+          cardPwd2digit: payload.cardPwd2digit,
+        })
+      );
+      if (response.password) {
+        setResetedPassword(response.password);
+      }
+      successToast(t("find-password-success"));
+    } catch (error: any) {
+      console.log("error", error);
+      errorToast(error.message);
+    }
+  };
 
   return (
     <Card className="w-full md:max-w-screen-sm mx-auto rounded-xl bg-white max-h-[800px]  border-none p-0 md:p-4 shadow-lg">
@@ -48,7 +94,11 @@ const FindEmailContainer = ({ lng }: Props) => {
       <CardContent>
         <FindPasswordForm
           lng={lng}
-          handleResetedPassword={(value) => setResetedPassword(value)}
+          isLoading={isLoading}
+          isValid={isValid}
+          errors={errors}
+          register={register}
+          onSubmit={handleSubmit(findEmailSubmit)}
         />
       </CardContent>
       <CardFooter>

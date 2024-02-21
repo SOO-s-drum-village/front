@@ -87,7 +87,7 @@ const SignUpContainer = ({ lng }: Props) => {
     try {
       await startTransition(handleSignUp(singInPayload));
       successToast(t("signup-success"));
-      router.push(`/${lng || "ko"}/sign-in`);
+      router.push(`/${lng || "ko"}/auth/sign-in`);
     } catch (error: any) {
       console.log("error", error);
       errorToast(error.response.data.message);

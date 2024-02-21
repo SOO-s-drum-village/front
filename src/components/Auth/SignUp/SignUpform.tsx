@@ -2,15 +2,9 @@ import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/app/i18n/client";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
-import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
-import { useQueryClient } from "@tanstack/react-query";
 import { useHookFormMask } from "use-mask-input";
-import {
-  FieldErrors,
-  FormSubmitHandler,
-  UseFormRegister,
-} from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { SignUpFormData } from "./SignUpContainer";
 import { FormEvent } from "react";
 
@@ -23,9 +17,6 @@ type Props = {
 };
 
 const SignUpForm = ({ lng, onSubmit, register, isValid, errors }: Props) => {
-  const router = useRouter();
-  const queryClient = useQueryClient();
-
   const registerWithMask = useHookFormMask(register);
 
   const { t } = useTranslation(lng, "auth");

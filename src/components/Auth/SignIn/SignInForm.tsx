@@ -1,72 +1,36 @@
-import React, { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/app/i18n/client";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import useToast from "@/hooks/useToast";
-import { getMe, handleSignIn } from "@/apis/auth";
-import { useLoading } from "@toss/use-loading";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
-import useUserStore from "@/store/user";
 import { Language } from "@/types";
+import {
+  UseFormRegister,
+  FormSubmitHandler,
+  SubmitHandler,
+  UseFormHandleSubmit,
+} from "react-hook-form";
+import { SingInFormData } from "./SignInContainer";
+import { FormEvent } from "react";
 
 interface Props {
   lng: Language;
+  isLoading: boolean;
+  isValid: boolean;
+  register: UseFormRegister<SingInFormData>;
+  handleSubmit: () => void;
 }
 
-const schema = yup
-  .object({
-    password: yup
-      .string()
-      .min(8, "8글자 이상 입력해주세요.")
-      .max(12, "12글자 이내로 입력해주세요.")
-      .required(),
-    email: yup.string().email("유효한 이메일 형식이 아닙니다.").required(),
-  })
-  .required();
-type FormData = yup.InferType<typeof schema>;
-
-const SignInForm = ({ lng }: Props) => {
-  const { errorToast, successToast } = useToast();
-  const [isLoading, startTransition] = useLoading();
-  const router = useRouter();
-  const queryClient = useQueryClient();
-  const { setIsAuth, setUser } = useUserStore();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+const SignInForm = ({
+  lng,
+  isLoading,
+  isValid,
+  register,
+  handleSubmit,
+}: Props) => {
   const { t } = useTranslation(lng, "auth");
 
-  const signInSubmit = async (payload: FormData) => {
-    try {
-      await startTransition(handleSignIn(payload));
-
-      const result = await getMe();
-
-      if (result) {
-        setIsAuth(true);
-        setUser(result);
-      }
-
-      successToast(t("signin-success"));
-      router.push(`/${lng}`);
-    } catch (error: any) {
-      console.log("error", error);
-      errorToast(error.message);
-    }
-  };
-
   return (
-    <form className="text-gray mt-4" onSubmit={handleSubmit(signInSubmit)}>
+    <form className="text-gray mt-4" onSubmit={handleSubmit}>
       <div className="grid items-center gap-1.5 mb-2">
         <Label htmlFor="이메일">{t("email")}</Label>
         <Input

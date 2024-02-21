@@ -22,25 +22,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ErrorMessage } from "@hookform/error-message";
-
-const ArrowIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-      />
-    </svg>
-  );
-};
+import { ArrowLeftIcon } from "@/components/icons/ArrowLeft";
 
 const schema = yup
   .object({
@@ -125,7 +107,7 @@ const page = ({ params }: Props) => {
     <section className="max-w-screen-md mx-auto py-8 md:py-16 px-4 md:px-0">
       <div className="bg-whitesmoke2 text-black text-lg md:text-2xl font-bold px-6 py-8 rounded-xl shadow-lg flex items-center">
         <button onClick={() => router.back()}>
-          <ArrowIcon />
+          <ArrowLeftIcon className="w-6 h-6" />
         </button>
         <span className="ml-4 leading-6">{user?.name}</span>
       </div>

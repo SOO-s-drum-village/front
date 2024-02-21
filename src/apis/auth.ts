@@ -45,7 +45,7 @@ export const handleSignUp = async (payload: SignUpPayload) => {
     const response = await apiRequest.post("/auth/signup", payload);
     return response;
   } catch (error) {
-    throw new Error(exceptionHandler(error, "API handleSignUp error"));
+    throw error;
   }
 };
 

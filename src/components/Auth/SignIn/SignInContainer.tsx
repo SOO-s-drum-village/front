@@ -13,15 +13,65 @@ import { useTranslation } from "@/app/i18n/client";
 import { Language } from "@/types";
 import { useRouter } from "next/navigation";
 import SignInForm from "./SignInForm";
+import { useLoading } from "@toss/use-loading";
+import useToast from "@/hooks/useToast";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { getMe, handleSignIn } from "@/apis/auth";
+import useUserStore from "@/store/user";
+import * as yup from "yup";
 
 interface Props {
   lng: Language;
 }
 
-const SignInCard = ({ lng }: Props) => {
-  const { t } = useTranslation(lng, "auth");
-  const router = useRouter();
+const schema = yup
+  .object({
+    password: yup
+      .string()
+      .min(8, "8글자 이상 입력해주세요.")
+      .max(12, "12글자 이내로 입력해주세요.")
+      .required(),
+    email: yup.string().email("유효한 이메일 형식이 아닙니다.").required(),
+  })
+  .required();
+export type SingInFormData = yup.InferType<typeof schema>;
 
+const SignInCard = ({ lng }: Props) => {
+  const router = useRouter();
+  const { errorToast, successToast } = useToast();
+  const { setIsAuth, setUser } = useUserStore();
+  const [isLoading, startTransition] = useLoading();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const { t } = useTranslation(lng, "auth");
+
+  const signInSubmit = async (payload: SingInFormData) => {
+    console.log("hihi");
+    try {
+      await startTransition(handleSignIn(payload));
+
+      const result = await getMe();
+
+      if (result) {
+        setIsAuth(true);
+        setUser(result);
+      }
+
+      successToast(t("signin-success"));
+      router.push(`/${lng}`);
+    } catch (error: any) {
+      console.log("error", error);
+      errorToast(error.message);
+    }
+  };
   return (
     <Card className="w-full md:max-w-screen-sm mx-auto rounded-xl bg-white h-[500px]  border-none p-0 md:p-4 shadow-lg">
       <CardHeader>
@@ -41,12 +91,17 @@ const SignInCard = ({ lng }: Props) => {
               d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
             />
           </svg>
-
           <span className="ml-2">{t("signin")}</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <SignInForm lng={lng} />
+        <SignInForm
+          lng={lng}
+          isLoading={isLoading}
+          isValid={isValid}
+          register={register}
+          handleSubmit={handleSubmit(signInSubmit)}
+        />
       </CardContent>
       <CardFooter className="flex flex-col text-gray font-medium">
         <div className="flex">

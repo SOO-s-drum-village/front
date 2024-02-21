@@ -5,22 +5,9 @@ import { useTranslation } from "@/app/i18n/client";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import {
-  ColumnDef,
-  PaginationState,
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
-  SortingState,
-  ColumnFiltersState,
 } from "@tanstack/react-table";
 import Link from "next/link";
 import { DataTable, DataTable2 } from "./PaymentTable";
@@ -74,7 +61,7 @@ const PaymentDetail = ({ lng }: Props) => {
   };
 
   const { data: paymentList } = useQuery({
-    queryKey: ["payment-list"],
+    queryKey: ["payment-list", page],
     queryFn: () => payments({ page: page }),
     placeholderData: keepPreviousData,
   });
@@ -131,15 +118,6 @@ const PaymentDetail = ({ lng }: Props) => {
       maxSize: 80,
       enableSorting: false,
     },
-    // {
-    //   accessorKey: "createdReplyCount",
-    //   header: ({ column }) => (
-    //     <ColumnHeader column={column} title="응답 수" enableHiding={false} />
-    //   ),
-    //   size: 80,
-    //   maxSize: 80,
-    //   enableSorting: true,
-    // },
   ];
 
   const table = useReactTable({
@@ -160,8 +138,6 @@ const PaymentDetail = ({ lng }: Props) => {
     // onSortingChange: setSorting,
     // onColumnFiltersChange: setColumnFilters,
   });
-
-  console.log("paymentList", paymentList);
 
   return (
     <div className="my-8 text-black text-lg shadow-lg rounded-xl">

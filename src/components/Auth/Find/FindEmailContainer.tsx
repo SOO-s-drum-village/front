@@ -10,16 +10,61 @@ import {
 } from "@/components/ui/card";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import useToast from "@/hooks/useToast";
+import { handleFindEmail } from "@/apis/auth";
+import { useLoading } from "@toss/use-loading";
 import FindEmailForm from "./FindEmailForm";
 
 interface Props {
   lng: "ko" | "en";
 }
 
+const schema = yup
+  .object({
+    cardNumber: yup.string().required("카드번호 16자를 입력해주세요."),
+    name: yup
+      .string()
+      .min(2, "2글자 이상 입력해주세요.")
+      .required("이름은 필수입니다."),
+  })
+  .required();
+export type FindEmailFormData = yup.InferType<typeof schema>;
+
 const FindEmailContainer = ({ lng }: Props) => {
   const { t } = useTranslation(lng, "auth");
   const router = useRouter();
   const [responseEmail, setResponseEmail] = useState("");
+  const { errorToast, successToast } = useToast();
+  const [isLoading, startTransition] = useLoading();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const findEmailSubmit = async (payload: FindEmailFormData) => {
+    try {
+      const response = await startTransition(
+        handleFindEmail({
+          name: payload.name,
+          cardNumber: payload.cardNumber.replace(/-/g, ""),
+        })
+      );
+      if (response.id) {
+        setResponseEmail(response.id);
+      }
+      successToast(t("find-email-success"));
+    } catch (error: any) {
+      console.log("error", error);
+      errorToast(error.message);
+    }
+  };
 
   return (
     <Card className="w-full md:max-w-screen-sm mx-auto rounded-xl bg-white h-[500px]  border-none p-0 md:p-4 shadow-lg">
@@ -47,7 +92,11 @@ const FindEmailContainer = ({ lng }: Props) => {
       <CardContent>
         <FindEmailForm
           lng={lng}
-          handleResponseEmail={(value) => setResponseEmail(value)}
+          register={register}
+          isLoading={isLoading}
+          isValid={isValid}
+          errors={errors}
+          onSubmit={handleSubmit(findEmailSubmit)}
         />
       </CardContent>
       <CardFooter>

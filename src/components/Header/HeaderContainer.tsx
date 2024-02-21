@@ -11,7 +11,7 @@ import useToast from "@/hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import useUserStore from "@/store/user";
 import Image from "next/image";
-import Search from "../\bIcon/Search";
+import Search from "../icons/Search";
 
 interface IProps {
   children: React.ReactNode;

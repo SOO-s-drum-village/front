@@ -1,74 +1,37 @@
-import React, { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/app/i18n/client";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import useToast from "@/hooks/useToast";
-import { getMe, handleFindEmail } from "@/apis/auth";
-import { useLoading } from "@toss/use-loading";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
-import useUserStore from "@/store/user";
 import { Language } from "@/types";
 import { ErrorMessage } from "@hookform/error-message";
 import { useHookFormMask } from "use-mask-input";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { FindEmailFormData } from "./FindEmailContainer";
+import { FormEvent } from "react";
 
 interface Props {
   lng: Language;
-  handleResponseEmail: (value: string) => void;
+  register: UseFormRegister<FindEmailFormData>;
+  errors: FieldErrors<FindEmailFormData>;
+  isLoading: boolean;
+  isValid: boolean;
+  onSubmit: () => void;
 }
 
-const schema = yup
-  .object({
-    cardNumber: yup.string().required("카드번호 16자를 입력해주세요."),
-    name: yup
-      .string()
-      .min(2, "2글자 이상 입력해주세요.")
-      .required("이름은 필수입니다."),
-  })
-  .required();
-type FormData = yup.InferType<typeof schema>;
-
-const FindEmailForm = ({ lng, handleResponseEmail }: Props) => {
-  const { errorToast, successToast } = useToast();
-  const [isLoading, startTransition] = useLoading();
-  const router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isValid },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+const FindEmailForm = ({
+  lng,
+  errors,
+  register,
+  isLoading,
+  isValid,
+  onSubmit,
+}: Props) => {
   const { t } = useTranslation(lng, "auth");
 
   const registerWithMask = useHookFormMask(register);
 
-  const findEmailSubmit = async (payload: FormData) => {
-    try {
-      const response = await startTransition(
-        handleFindEmail({
-          name: payload.name,
-          cardNumber: payload.cardNumber.replace(/-/g, ""),
-        })
-      );
-      if (response.id) {
-        handleResponseEmail(response.id);
-      }
-      successToast(t("find-email-success"));
-    } catch (error: any) {
-      console.log("error", error);
-      errorToast(error.message);
-    }
-  };
-
   return (
-    <form className="text-gray mt-4" onSubmit={handleSubmit(findEmailSubmit)}>
+    <form className="text-gray mt-4" onSubmit={onSubmit}>
       <div className="grid items-center gap-1.5 mb-2">
         <Label htmlFor="이름">{t("name")}</Label>
         <Input
