@@ -1,113 +1,42 @@
-import React, { useEffect } from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/app/i18n/client";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
-import useToast from "@/hooks/useToast";
-import { handleSignUp } from "@/apis/auth";
-import { useLoading } from "@toss/use-loading";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
 import { useQueryClient } from "@tanstack/react-query";
 import { useHookFormMask } from "use-mask-input";
+import {
+  FieldErrors,
+  FormSubmitHandler,
+  UseFormRegister,
+} from "react-hook-form";
+import { SignUpFormData } from "./SignUpContainer";
+import { FormEvent } from "react";
 
 type Props = {
   lng: string;
+  onSubmit: () => void;
+  register: UseFormRegister<SignUpFormData>;
+  isValid: boolean;
+  errors: FieldErrors<SignUpFormData>;
 };
 
-const schema = yup
-  .object({
-    name: yup
-      .string()
-      .min(2, "2글자 이상 입력해주세요.")
-      .required("이름은 필수입니다."),
-    password: yup
-      .string()
-      .min(8, "8글자 이상 입력해주세요.")
-      .max(12, "12글자 이내로 입력해주세요.")
-      .required(),
-    passwordConfirm: yup
-      .string()
-      .oneOf([yup.ref("password")], "비밀번호가 다릅니다"),
-    email: yup.string().email("유효한 이메일 형식이 아닙니다.").required(),
-    cardNumber: yup.string().required("카드번호 16자를 입력해주세요."),
-    cardExpiry: yup.string().required("카드 유효기간 4자리를 입력해주세요."),
-    birth: yup
-      .string()
-      .length(6, "생년월일 6자리를 입력해주세요.")
-      .required("생년월일 6자리를 입력해주세요."),
-    cardPwd2digit: yup
-      .string()
-      .length(2, "카드 비밀번호 앞 2자리를 입력해주세요.")
-      .required("카드 비밀번호 앞 2자리를 입력해주세요."),
-    cardCvc: yup
-      .string()
-      .length(3, "카드 cvc번호는 3글자이어야 합니다.")
-      .required("카드 CVC번호 3자리를 입력해주세요."),
-  })
-  .required();
-type FormData = yup.InferType<typeof schema>;
-
-const SignUpForm = ({ lng }: Props) => {
-  const { errorToast, successToast } = useToast();
-  const [isLoading, startTransition] = useLoading();
+const SignUpForm = ({ lng, onSubmit, register, isValid, errors }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    control,
-    formState: { errors, isValid },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
 
   const registerWithMask = useHookFormMask(register);
 
   const { t } = useTranslation(lng, "auth");
 
-  const signUpSubmit = async (payload: FormData) => {
-    const singInPayload = {
-      name: payload.name,
-      email: payload.email,
-      password: payload.password,
-      cardNumber: payload.cardNumber,
-      cardExpiry: payload.cardExpiry,
-      birth: payload.birth,
-      cardPwd2digit: payload.cardPwd2digit,
-      cardCvc: payload.cardCvc,
-    };
-
-    try {
-      await startTransition(handleSignUp(singInPayload));
-      successToast(t("signup-success"));
-      router.push(`/${lng || "ko"}/auth/sign-up`);
-    } catch (error: any) {
-      console.log("error", error);
-      errorToast(error.message);
-    }
-  };
-
-  // const { onChange, name, ref } = register("cardNumber");
-
-  const normalizeCardNumbr = (value: string) => {
-    // if(value.length > 4) {
-    //   return value.push('-')
-    // }
-    // return value
-    //   .replace(/\s/g, "")
-    //   .match(/.{1,4}/g)
-    //   ?.join("-");
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onSubmit();
   };
 
   return (
-    <form className="text-gray mt-4" onSubmit={handleSubmit(signUpSubmit)}>
+    <form className="text-gray mt-4" onSubmit={handleSubmit}>
       <div className="grid items-center gap-1.5 mb-2">
         <Label htmlFor="이름">{t("name")}</Label>
         <Input

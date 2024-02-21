@@ -1,15 +1,15 @@
-import SignInContainer from "@/components/Auth/SignIn/SignInContainer";
+import FindPasswordContainer from "@/components/Auth/Find/FindPasswordContainer";
 import { Language } from "@/types";
 import React from "react";
 
-type Props = {
+interface Props {
   params: { lng: Language };
-};
+}
 
-const page = ({ params }: Props) => {
+const page = ({ params: { lng } }: Props) => {
   return (
     <div className="h-full flex items-center">
-      <SignInContainer lng={params.lng} />
+      <FindPasswordContainer lng={lng} />
     </div>
   );
 };

@@ -5,7 +5,7 @@ export type Lecture = {
   title: string;
   level: number;
   categories: LectureCategory[];
-  imageUrl: string;
+  owner: string;
 };
 
 export const LectureValues = {

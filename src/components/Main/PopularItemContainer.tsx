@@ -7,10 +7,11 @@ import { LectureCard } from "../Lecture/LectureCard";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { useTranslation } from "@/app/i18n/client";
 import { useParams } from "next/navigation";
+import { Language } from "@/types";
 
 const PopularItemContainer = () => {
   const params = useParams();
-  const { t } = useTranslation((params.lng as string) || "ko", "main");
+  const { t } = useTranslation((params.lng as Language) || "ko", "main");
 
   const { data: popularItems } = useQuery({
     queryKey: ["popularItems"],

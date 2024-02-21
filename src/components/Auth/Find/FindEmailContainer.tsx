@@ -1,26 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { useTranslation } from "@/app/i18n/client";
-import { Language } from "@/types";
 import { useRouter } from "next/navigation";
-import SignInForm from "./SignInForm";
+import FindEmailForm from "./FindEmailForm";
 
 interface Props {
-  lng: Language;
+  lng: "ko" | "en";
 }
 
-const SignInCard = ({ lng }: Props) => {
+const FindEmailContainer = ({ lng }: Props) => {
   const { t } = useTranslation(lng, "auth");
   const router = useRouter();
+  const [responseEmail, setResponseEmail] = useState("");
 
   return (
     <Card className="w-full md:max-w-screen-sm mx-auto rounded-xl bg-white h-[500px]  border-none p-0 md:p-4 shadow-lg">
@@ -42,37 +41,36 @@ const SignInCard = ({ lng }: Props) => {
             />
           </svg>
 
-          <span className="ml-2">{t("signin")}</span>
+          <span className="ml-2">{t("find-email")}</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <SignInForm lng={lng} />
+        <FindEmailForm
+          lng={lng}
+          handleResponseEmail={(value) => setResponseEmail(value)}
+        />
       </CardContent>
-      <CardFooter className="flex flex-col text-gray font-medium">
-        <div className="flex">
-          <button
-            className="py-1 mr-3"
-            onClick={() => router.push(`/${lng}/auth/find-password`)}
-          >
-            <span className="underline">{t("find-password")}</span>
-          </button>
-          <div className="border-r-[1px] border-disabled my-2"></div>
-          <button
-            className="py-1 ml-3"
-            onClick={() => router.push(`/${lng}/auth/find-email`)}
-          >
-            <span className="underline">{t("find-email")}</span>
-          </button>
-        </div>
-        <button
-          className="py-1"
-          onClick={() => router.push(`/${lng}/auth/sign-up`)}
-        >
-          <span className="underline">{t("signup")}</span>
-        </button>
+      <CardFooter>
+        {responseEmail && lng === "ko" && (
+          <div className="mt-4">
+            <span>요청하신 명의자의 이메일은</span>
+            <strong className="mx-1 font-bold text-lg md:text-xl">
+              {responseEmail}
+            </strong>
+            입니다
+          </div>
+        )}
+        {responseEmail && lng === "en" && (
+          <div className="mt-4">
+            <span>The email address of the person making the request is </span>
+            <strong className="mx-1 font-bold text-lg md:text-xl">
+              {responseEmail}
+            </strong>
+          </div>
+        )}
       </CardFooter>
     </Card>
   );
 };
 
-export default SignInCard;
+export default FindEmailContainer;

@@ -2,6 +2,7 @@ import { User } from "@/types/user";
 import { exceptionHandler } from "./exception-handler";
 import { apiRequest } from "./index";
 import { Card } from "@/types/payment";
+import { FindEmailResponse, FindPasswordResponse } from "@/types/auth";
 
 interface SignInPayload {
   email: string;
@@ -19,6 +20,17 @@ interface SignUpPayload {
   cardCvc: string;
 }
 
+interface FindEmailPayload {
+  name: string;
+  cardNumber: string;
+}
+
+interface FindPasswordPayload {
+  email: string;
+  cardNumber: string;
+  cardPwd2digit: string;
+}
+
 export const handleSignIn = async (payload: SignInPayload) => {
   try {
     const response = await apiRequest.post("/auth/login/email", payload);
@@ -34,6 +46,47 @@ export const handleSignUp = async (payload: SignUpPayload) => {
     return response;
   } catch (error) {
     throw new Error(exceptionHandler(error, "API handleSignUp error"));
+  }
+};
+
+export const handleFindEmail = async (
+  payload: FindEmailPayload
+): Promise<FindEmailResponse> => {
+  try {
+    const response = await apiRequest.post<FindEmailResponse>(
+      "/auth/find/id",
+      payload
+    );
+    return response;
+  } catch (error) {
+    throw new Error(exceptionHandler(error, "API handleFindEmail error"));
+  }
+};
+
+export const handleFindPassword = async (
+  payload: FindPasswordPayload
+): Promise<FindPasswordResponse> => {
+  try {
+    const response = await apiRequest.post<FindPasswordResponse>(
+      "/auth/find/password",
+      payload
+    );
+    return response;
+  } catch (error) {
+    throw new Error(exceptionHandler(error, "API handleFindPassword error"));
+  }
+};
+
+export const handleChangePassword = async ({
+  password,
+}: {
+  password: string;
+}) => {
+  try {
+    const response = await apiRequest.patch("/auth/password", { password });
+    return response;
+  } catch (error) {
+    throw new Error(exceptionHandler(error, "API handleChangePassword error"));
   }
 };
 

@@ -32,9 +32,9 @@ export type ListRequest = {
 
 interface ApiRequestMethods {
   get<T>(url: string, request?: AxiosRequestConfig): Promise<T>;
-  post<T>(url: string, body?: any): Promise<ApiResponse<T>>;
-  put<T>(url: string, body?: any): Promise<ApiResponse<T>>;
-  patch<T>(url: string, body?: any): Promise<ApiResponse<T>>;
+  post<T>(url: string, body?: any): Promise<T>;
+  put<T>(url: string, body?: any): Promise<T>;
+  patch<T>(url: string, body?: any): Promise<T>;
   delete<T>(url: string, id: any): Promise<T>;
 }
 

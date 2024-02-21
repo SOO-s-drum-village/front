@@ -80,10 +80,9 @@ export const HeaderContainer = ({ children }: IProps) => {
           />
         </button>
       </div>
-
+      {children}
       <div className="flex items-center">
         <div className="flex items-center">
-          {children}
           {/* <Search className="w-6 h-6 cursor-pointer" border="2" /> */}
           {isAuth ? (
             <Menu as="div" className="text-left">

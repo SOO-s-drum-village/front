@@ -4,7 +4,7 @@ const Home = () => {
       <img
         src="/drumvillage-logo.png"
         alt="Drum Village Membership Pass"
-        className="w-[500px] mx-auto mt-20 mb-40"
+        className="w-[500px] mx-auto mt-20 mb-20 px-4"
       />
       <div className="max-w-[700px] mx-auto text-center mb-12">
         <h2 className="font-bold text-xl">드럼빌리지란?</h2>

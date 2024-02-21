@@ -5,6 +5,7 @@ import ToasterProvider from "../components/Provider/ToasterProvider";
 import QueryProvider from "../components/Provider/QueryProvider";
 import { languages } from "./i18n/settings";
 import Header from "@/components/layouts/Header";
+import { Language } from "@/types";
 
 const notoSansKr = Noto_Sans_KR({
   // preload: true, 기본값
@@ -74,7 +75,7 @@ export default function RootLayout({
   params: { lng },
 }: {
   children: React.ReactNode;
-  params: { lng: string };
+  params: { lng: Language };
 }) {
   return (
     <html lang={lng ?? "ko"}>

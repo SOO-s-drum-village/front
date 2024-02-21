@@ -25,9 +25,10 @@ const UserIcon = () => {
 
 interface Props {
   lng: string;
+  handleModal: () => void;
 }
 
-const LoginInfo = ({ lng }: Props) => {
+const LoginInfo = ({ lng, handleModal }: Props) => {
   const { user } = useUserStore();
   const { t } = useTranslation(lng, "auth");
 
@@ -48,7 +49,9 @@ const LoginInfo = ({ lng }: Props) => {
         </div>
       </div>
       <div className="p-6 border-t-[1px] border-whitesmoke ">
-        <button className="text-gray">{t("change-pw")}</button>
+        <button className="text-gray" onClick={handleModal}>
+          {t("change-pw")}
+        </button>
       </div>
     </div>
   );

@@ -27,14 +27,14 @@ const DetailContainer = () => {
     <section>
       <div className="flex flex-col md:flex-row">
         <div className="relative w-[330px] mx-auto h-[400px]">
-          <Image
+          {/* <Image
             src={lecture?.imageUrl || "/membership-pass.png"}
             alt="lecture_img"
             fill
             priority
             sizes="250px, 250px"
             quality={100}
-          />
+          /> */}
         </div>
         <div className="md:ml-16 flex-1 mt-8 md:mt-0 flex flex-col">
           <span className="text-2xl font-bold md:mt-4">{lecture?.title}</span>
