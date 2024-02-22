@@ -3,7 +3,7 @@ import { Lecture, LectureCategory, LectureList } from "@/types/lecture";
 import { exceptionHandler } from "./exception-handler";
 import { ListRequest, apiRequest } from "./index";
 
-interface LecturesRequest extends ListRequest {
+export interface LecturesRequest extends ListRequest {
   category?: LectureCategory | undefined;
 }
 
