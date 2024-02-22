@@ -25,7 +25,7 @@ interface ApiResponse<T> {
 }
 
 export type ListRequest = {
-  page?: number;
+  page: number;
   size?: number;
   direction?: SortDirection;
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { getLectures } from "@/apis/lecture";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { LectureCard } from "../Lecture/LectureCard";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
@@ -12,11 +12,13 @@ import { Language } from "@/types";
 const PopularItemContainer = () => {
   const params = useParams();
   const { t } = useTranslation((params.lng as Language) || "ko", "main");
-
+  const queryClient = useQueryClient();
   const { data: popularItems } = useQuery({
     queryKey: ["popularItems"],
     queryFn: () => getLectures({ page: 1 }),
   });
+
+  // const { data: popularItems } = useLectureList();
 
   return (
     <section className="max-w-screen-2xl mx-auto px-2 md:px-8 ">

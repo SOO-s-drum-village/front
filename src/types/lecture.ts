@@ -13,3 +13,9 @@ export const LectureValues = {
   K_POP: "K·POP",
   PRAISE: "PRAISE",
 };
+
+export interface LectureList {
+  lectures: Lecture[];
+  nextPage: number;
+  isLast: boolean;
+}

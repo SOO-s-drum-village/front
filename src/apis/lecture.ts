@@ -1,11 +1,10 @@
 import { SortDirection } from "./../types/index";
-import { Lecture, LectureCategory } from "@/types/lecture";
+import { Lecture, LectureCategory, LectureList } from "@/types/lecture";
 import { exceptionHandler } from "./exception-handler";
 import { ListRequest, apiRequest } from "./index";
 
 interface LecturesRequest extends ListRequest {
   category?: LectureCategory | undefined;
-  direction?: SortDirection | undefined;
 }
 
 export const getLectures = async (request: LecturesRequest) => {
@@ -24,6 +23,23 @@ export const getLectures = async (request: LecturesRequest) => {
   } catch (error: any) {
     throw new Error(exceptionHandler(error, "API getLectures error"));
   }
+};
+
+export const getLectureList = async ({
+  page,
+  category,
+  direction,
+}: LecturesRequest): Promise<LectureList> => {
+  const response = await getLectures({
+    page,
+    category,
+    direction,
+  });
+  return {
+    lectures: response,
+    nextPage: page + 1,
+    isLast: response.length < 20,
+  };
 };
 
 export const getLecture = async (lectureId: number) => {

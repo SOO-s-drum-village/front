@@ -3,18 +3,12 @@
 import { LectureCard } from "./LectureCard";
 import { useInView } from "react-intersection-observer";
 import { useDidUpdate } from "@toss/react";
-import { getLectures } from "@/apis/lecture";
+import { getLectureList, getLectures } from "@/apis/lecture";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Lecture, LectureCategory } from "@/types/lecture";
 import { useSearchParams } from "next/navigation";
 import { SortDirection } from "@/types/index";
 import LectureSearchForm from "./LectureSearchForm";
-
-export interface LectureList {
-  lectures: Lecture[];
-  nextPage: number;
-  isLast: boolean;
-}
 
 export const LectureContainer = () => {
   const searchParams = useSearchParams();
@@ -26,25 +20,17 @@ export const LectureContainer = () => {
     threshold: 0.5,
   });
 
-  const getLectureList = async (pageParam: number): Promise<LectureList> => {
-    const response = await getLectures({
-      page: pageParam,
-      category:
-        category === "ALL" || !!category
-          ? undefined
-          : (category as LectureCategory),
-      direction: sort as SortDirection,
-    });
-    return {
-      lectures: response,
-      nextPage: pageParam + 1,
-      isLast: response.length < 20,
-    };
-  };
-
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["lectures", category, sort],
-    queryFn: ({ pageParam }) => getLectureList(pageParam),
+    queryFn: ({ pageParam }) =>
+      getLectureList({
+        page: pageParam,
+        category:
+          category === "ALL" || !!category
+            ? undefined
+            : (category as LectureCategory),
+        direction: sort as SortDirection,
+      }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (!lastPage.isLast) return lastPage.nextPage;
