@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <section className=" p-4 bg-whitesmoke">
+    <section className="h-full p-4 bg-whitesmoke">
       <img
         src="/drumvillage-logo.png"
         alt="Drum Village Membership Pass"

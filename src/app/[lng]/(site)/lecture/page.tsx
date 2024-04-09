@@ -1,9 +1,7 @@
 import { getLectures } from "@/apis/lecture";
 import GetQueryClient from "@/app/GetQueryClient";
-import {
-  LectureContainer,
-  LectureList,
-} from "@/components/Lecture/LectureContainer";
+import { LectureContainer } from "@/components/Lecture/LectureContainer";
+import { LectureList } from "@/types/lecture";
 import { Metadata } from "next";
 import React from "react";
 
