@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import ReactPlayer from 'react-player';
-import { useQuery } from '@tanstack/react-query';
-import { getLecture } from '@/apis/lecture';
-import { useParams, useRouter } from 'next/navigation';
-import { Lecture } from '@/types/lecture';
-import { AxiosError } from 'axios';
-import { useIsMounted } from '@toss/react';
-import { LectureThumbnail } from './LectureThumbnail';
+import React from "react";
+import Image from "next/image";
+import ReactPlayer from "react-player";
+import { useQuery } from "@tanstack/react-query";
+import { getLecture } from "@/apis/lecture";
+import { useParams, useRouter } from "next/navigation";
+import { Lecture } from "@/types/lecture";
+import { AxiosError } from "axios";
+import { useIsMounted } from "@toss/react";
+import { LectureThumbnail } from "./LectureThumbnail";
 
 const DetailContainer = () => {
   const params = useParams();
@@ -17,7 +17,7 @@ const DetailContainer = () => {
   const isMounted = useIsMounted();
 
   const { data: lecture, error } = useQuery<Lecture, AxiosError>({
-    queryKey: ['lecture', params.id],
+    queryKey: ["lecture", params.id],
     queryFn: () => getLecture(Number(params.id)),
   });
 
@@ -41,7 +41,7 @@ const DetailContainer = () => {
           />
         </div> */}
         {isMounted && lecture && (
-          <div className="w-full md:w-1/3 h-[300px]">
+          <div className="w-full md:w-1/2 h-[300px]">
             <ReactPlayer
               url="https://www.youtube.com/watch?v=l0IoPQM1HlU"
               light={<LectureThumbnail lecture={lecture} />}
@@ -53,7 +53,7 @@ const DetailContainer = () => {
           </div>
         )}
 
-        <div className="mt-8 md:mt-0 flex-1 md:ml-24 flex flex-col">
+        <div className="mt-8 md:mt-0 flex-1 md:ml-16 flex flex-col">
           <span className="text-2xl font-bold md:mt-4">{lecture?.title}</span>
           <ul className="list-disc ml-4 mt-2 text-gray">
             <li className="my-2">
@@ -63,7 +63,7 @@ const DetailContainer = () => {
             <li>레벨에 따라 연주가 편곡될 수 있습니다.</li>
           </ul>
           <p className="text-dimgray font-semibold mt-4 md:mt-6">
-            카테고리 :{' '}
+            카테고리 :{" "}
             {lecture?.categories.map((category) => (
               <span key={category}>{category} </span>
             ))}

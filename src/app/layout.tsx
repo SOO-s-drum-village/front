@@ -6,6 +6,7 @@ import QueryProvider from "../components/Provider/QueryProvider";
 import { languages } from "./i18n/settings";
 import Header from "@/components/layouts/Header";
 import { Language } from "@/types";
+import "./globals.css";
 
 const notoSansKr = Noto_Sans_KR({
   // preload: true, 기본값

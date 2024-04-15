@@ -74,3 +74,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.react-player__shadow {
+  background-color: #34363d !important;
+}
+
+.react-player__shadow:hover {
+  background-color: #34373d !important;
+}
