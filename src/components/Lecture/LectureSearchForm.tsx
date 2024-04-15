@@ -136,7 +136,7 @@ const LectureSearchForm = () => {
         {badgeList.map((badge) => (
           <Badge
             key={badge.value}
-            className={`cursor-pointer  text-darkslategray font-medium text-xs md:text-lg  ml-1 md:ml-4 py-[6px] px-2 md:px-5 my-1 md:my-0 ${
+            className={`cursor-pointer bg-white text-darkslategray font-medium text-xs md:text-lg  ml-1 md:ml-4 py-[6px] px-2 md:px-5 my-1 md:my-0 hover:bg-whitesmoke2  ${
               selectedCategory === badge.value
                 ? "border border-black bg-white text-black font-bold"
                 : ""
