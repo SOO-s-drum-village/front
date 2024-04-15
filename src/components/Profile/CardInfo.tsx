@@ -67,12 +67,18 @@ const CardInfo = ({ lng, myPayment, handleModal }: Props) => {
           {myPayment?.subscription ? (
             <div className="flex items-center">
               <span className="font-medium ">{t("subscribed")}</span>
-              <Button className="text-error w-20 ml-4" onClick={handleModal}>
+              <Button
+                className="text-error w-20 ml-4 bg-white hover:bg-whitesmoke"
+                onClick={handleModal}
+              >
                 {t("cancel")}
               </Button>
             </div>
           ) : (
-            <Button className="text-cornflowerblue w-20" onClick={handleModal}>
+            <Button
+              className="text-cornflowerblue w-20 bg-white hover:bg-white"
+              onClick={handleModal}
+            >
               {t("subscribe")}
             </Button>
           )}

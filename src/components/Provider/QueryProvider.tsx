@@ -14,7 +14,6 @@ export default function QueryProvider({ children }: Props) {
       defaultOptions: {
         // react-query 전역 설정
         queries: {
-          refetchOnWindowFocus: false,
           retry: 1,
           staleTime: 60 * 1000 * 60, // 1 hour
           //   suspense: true,

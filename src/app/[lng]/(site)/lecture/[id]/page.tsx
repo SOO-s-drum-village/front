@@ -1,8 +1,7 @@
-import { getMe, getPaymentMe } from '@/apis/auth';
-import DetailContainer from '@/components/Lecture/DetailContainer';
-import { redirect } from 'next/navigation';
-
-import React from 'react';
+import Loading from "@/components/Common/Loading";
+import DetailContainer from "@/components/Lecture/DetailContainer";
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
+import { ErrorBoundary } from "react-error-boundary";
 
 interface Props {
   params: { id: string; lng?: string };

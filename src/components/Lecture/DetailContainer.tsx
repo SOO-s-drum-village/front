@@ -1,35 +1,53 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import ReactPlayer from "react-player";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getLecture } from "@/apis/lecture";
 import { useParams, useRouter } from "next/navigation";
 import { Lecture } from "@/types/lecture";
 import { AxiosError } from "axios";
 import { useIsMounted } from "@toss/react";
 import { LectureThumbnail } from "./LectureThumbnail";
+import useUserStore from "@/store/user";
+import useToast from "@/hooks/useToast";
+import { useTranslation } from "@/app/i18n/client";
+import { Loading } from "../Common/Loading";
 
 const DetailContainer = () => {
   const params = useParams();
+  const { t } = useTranslation(params.lng as string, "lecture");
   const router = useRouter();
   const isMounted = useIsMounted();
+  const { user } = useUserStore();
+  const { errorToast } = useToast();
 
-  const { data: lecture, error } = useQuery<Lecture, AxiosError>({
-    queryKey: ["lecture", params.id],
+  const {
+    data: lecture,
+    error,
+    isLoading,
+  } = useQuery<Lecture, AxiosError>({
+    queryKey: ["lecture", params.id, user?.id],
     queryFn: () => getLecture(Number(params.id)),
   });
+
+  if (isLoading) return <Loading />;
 
   if (error) {
     if (error.response?.status === 401) {
       router.push(`/${params.lng}/auth/sign-in`);
-    } else throw new Error(error.message);
+    } else if (error.response?.status === 403) {
+      errorToast("가입필요");
+      // router.push(`/${params.lng}/my-profile`);
+    } else {
+      throw new Error(error.message);
+    }
   }
 
   return (
     <div className="max-w-screen-lg mx-auto p-4 md:p-8 h-full">
-      <div className="flex flex-col md:flex-row h-full">
+      <div className="flex flex-col md:flex-row">
         {/* <div className="relative w-full md:w-1/3 mx-auto h-[300px]">
           <Image
             src="/membership-pass.png"
@@ -50,6 +68,27 @@ const DetailContainer = () => {
               controls
               className="rounded-xl"
             />
+            {/* <video
+              controls
+              poster="/membership-pass.png"
+              style={{ width: "100%", height: "100%" }}
+            >
+              <source
+                src="https://www.youtube.com/watch?v=l0IoPQM1HlU"
+                type="video/mp4"
+              ></source>
+              <source
+                src="https://www.youtube.com/watch?v=l0IoPQM1HlU"
+                type="video/ogg"
+              ></source>
+            </video> */}
+            <iframe
+              src="https://www.youtube.com/embed/l0IoPQM1HlU"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              property="video"
+              style={{ width: "100%", height: "100%" }}
+            ></iframe>
           </div>
         )}
 

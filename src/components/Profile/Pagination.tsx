@@ -29,7 +29,7 @@ export function Pagination<TData>({
         <div className="flex items-center space-x-2">
           <Button
             variant="default"
-            className="hidden h-8 w-8 p-0 lg:flex"
+            className="hidden h-8 w-8 p-0 lg:flex text-black bg-white"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
@@ -38,7 +38,7 @@ export function Pagination<TData>({
           </Button>
           <Button
             variant="default"
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 text-black bg-white"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -51,7 +51,7 @@ export function Pagination<TData>({
           </div>
           <Button
             variant="default"
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 text-black bg-white"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -60,7 +60,7 @@ export function Pagination<TData>({
           </Button>
           <Button
             variant="default"
-            className="hidden h-8 w-8 p-0 lg:flex"
+            className="hidden h-8 w-8 p-0 lg:flex text-black bg-white"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >
