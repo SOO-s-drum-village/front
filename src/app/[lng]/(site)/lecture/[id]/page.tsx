@@ -1,7 +1,5 @@
-import Loading from "@/components/Common/Loading";
 import DetailContainer from "@/components/Lecture/DetailContainer";
-import { QueryErrorResetBoundary } from "@tanstack/react-query";
-import { ErrorBoundary } from "react-error-boundary";
+import { cookies } from "next/headers";
 
 interface Props {
   params: { id: string; lng?: string };
@@ -27,6 +25,10 @@ interface Props {
 // }
 
 const page = async ({ params }: Props) => {
+  const cookieStore = cookies();
+  const session = cookieStore;
+  console.log("cookieStore", cookieStore.getAll());
+
   return (
     <section className="h-full bg-whitesmoke2">
       <DetailContainer />

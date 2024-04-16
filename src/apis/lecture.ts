@@ -2,6 +2,7 @@ import { SortDirection } from "./../types/index";
 import { Lecture, LectureCategory, LectureList } from "@/types/lecture";
 import { exceptionHandler } from "./exception-handler";
 import { ListRequest, apiRequest } from "./index";
+import axios from "axios";
 
 export interface LecturesRequest extends ListRequest {
   category?: LectureCategory | undefined;
@@ -45,6 +46,21 @@ export const getLectureList = async ({
 export const getLecture = async (lectureId: number) => {
   try {
     const response = await apiRequest.get<Lecture>(`/lectures/${lectureId}`);
+    return response;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const getTest = async (lectureId: number) => {
+  try {
+    const response = await fetch(`/api/lectures/${lectureId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        credentials: "include",
+      },
+    });
     return response;
   } catch (error: any) {
     throw error;

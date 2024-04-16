@@ -17,7 +17,7 @@ import { useLoading } from "@toss/use-loading";
 import useToast from "@/hooks/useToast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { getMe, handleSignIn } from "@/apis/auth";
+import { getMe, handleSignIn, handleSignInTest } from "@/apis/auth";
 import useUserStore from "@/store/user";
 import * as yup from "yup";
 
@@ -57,6 +57,7 @@ const SignInCard = ({ lng }: Props) => {
     console.log("hihi");
     try {
       await startTransition(handleSignIn(payload));
+      // await handleSignInTest(payload);
 
       const result = await getMe();
 

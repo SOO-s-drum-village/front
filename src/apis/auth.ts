@@ -3,8 +3,9 @@ import { exceptionHandler } from "./exception-handler";
 import { apiRequest } from "./index";
 import { Card } from "@/types/payment";
 import { FindEmailResponse, FindPasswordResponse } from "@/types/auth";
+import axios from "axios";
 
-interface SignInPayload {
+export interface SignInPayload {
   email: string;
   password: string;
 }
@@ -125,5 +126,21 @@ export const updateSubscription = async (subscription: boolean) => {
     return response;
   } catch (error) {
     throw new Error(exceptionHandler(error, "API updateSubscription error"));
+  }
+};
+
+export const handleSignInTest = async (payload: SignInPayload) => {
+  try {
+    const response = await fetch("/api/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        credentials: "include",
+      },
+      body: JSON.stringify(payload),
+    });
+    return response;
+  } catch (error) {
+    throw new Error(exceptionHandler(error, "API handleSignInTest error"));
   }
 };

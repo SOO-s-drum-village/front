@@ -1,10 +1,10 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import Image from "next/image";
 import ReactPlayer from "react-player";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { getLecture } from "@/apis/lecture";
+import { getLecture, getTest } from "@/apis/lecture";
 import { useParams, useRouter } from "next/navigation";
 import { Lecture } from "@/types/lecture";
 import { AxiosError } from "axios";
@@ -44,6 +44,12 @@ const DetailContainer = () => {
       throw new Error(error.message);
     }
   }
+
+  // useEffect(() => {
+  //   getTest(Number(params.id))
+  //     .then((res) => console.log(res))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div className="max-w-screen-lg mx-auto p-4 md:p-8 h-full">
